@@ -181,3 +181,7 @@ export interface ListingFilterParams {
   view: "grid" | "list";
   types: Array<Listing["type"]>;
 }
+
+export interface RentalAgreement {
+  id: string;
+}

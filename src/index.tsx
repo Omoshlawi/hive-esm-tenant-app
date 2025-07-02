@@ -5,9 +5,13 @@ import { HeaderLink } from "@hive/esm-core-components";
 import { usePropertyChartProperty } from "./hooks";
 
 export function setup(app: PiletApi) {
-  app.registerPage("/dashboard/tenants", OrganizationTenants, {
-    layout: "dashboard",
-  });
+  app.registerPage(
+    "/dashboard/tenants",
+    () => <OrganizationTenants launchWorkspace={app.launchWorkspace} />,
+    {
+      layout: "dashboard",
+    }
+  );
   app.registerPage(
     "/dashboard/properties/:propertyId/tenancy-history",
     () => <PropertyTenancyHistory launchWorkspace={app.launchWorkspace} />,

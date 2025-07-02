@@ -1,18 +1,21 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import type { PiletApi } from '@hive/esm-shell-app';
-
-const Page = React.lazy(() => import('./Page'));
+import * as React from "react";
+import type { PiletApi } from "@hive/esm-shell-app";
+import { OrganizationTenants } from "./pages";
+import { HeaderLink } from "@hive/esm-core-components";
 
 export function setup(app: PiletApi) {
-  app.registerPage('/page', Page);
-
-  app.showNotification('Hello from Piral!', {
-    autoClose: 2000,
+  app.registerPage("/dashboard/tenants", OrganizationTenants, {
+    layout: "dashboard",
   });
-  app.registerMenu(() => <Link to="/page">Page</Link>);
-  app.registerTile(() => <div>Welcome to Piral!</div>, {
-    initialColumns: 2,
-    initialRows: 2,
-  });
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <HeaderLink
+        label="Tenants"
+        to="/dashboard/tenants"
+        icon="users"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
+  );
 }

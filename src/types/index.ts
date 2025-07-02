@@ -1,4 +1,10 @@
 import { z } from "zod";
+import {
+  CoApplicantValidator,
+  RentalApplicationValidator,
+  TenantValidator,
+  TenenantReferenceValidator,
+} from "../utils/validation";
 
 export interface Listing {
   id: string;
@@ -185,3 +191,17 @@ export interface ListingFilterParams {
 export interface RentalAgreement {
   id: string;
 }
+
+export interface RentalApplication {
+  id: string;
+}
+
+export type RentalApplicationFormData = z.infer<
+  typeof RentalApplicationValidator
+>;
+
+export type CoApplicantFormData = z.infer<typeof CoApplicantValidator>;
+export type TenenantReferenceFormData = z.infer<
+  typeof TenenantReferenceValidator
+>;
+export type TenantFormData = z.infer<typeof TenantValidator>;

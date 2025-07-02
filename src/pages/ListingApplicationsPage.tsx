@@ -1,38 +1,39 @@
-import React, { FC } from "react";
 import {
-  DashboardPageHeader,
   DataTableColumnHeader,
   StateFullDataTable,
   TablerIcon,
 } from "@hive/esm-core-components";
-import { ActionIcon, Box, Group, Stack } from "@mantine/core";
-import { useRentalAgreements } from "../hooks";
-import { ColumnDef } from "@tanstack/react-table";
-import { RentalAgreement } from "../types";
 import { PiletApi } from "@hive/esm-shell-app";
+import { ColumnDef } from "@tanstack/react-table";
+import React, { FC } from "react";
+import { useParams } from "react-router";
+import { RentalApplication } from "../types";
+import { useRentalApplications } from "../hooks";
 import { openConfirmModal } from "@mantine/modals";
-import { Text } from "@mantine/core";
+import { ActionIcon, Group, Text } from "@mantine/core";
+import ListingApplicationForm from "../forms/ListingApplicationForm";
+
 type Props = Pick<PiletApi, "launchWorkspace">;
 
-const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
-  const agreementsAsync = useRentalAgreements();
+const ListingApplicationsPage: FC<Props> = ({ launchWorkspace }) => {
+  const { listingId } = useParams<{ listingId: string }>();
+  const applicationsAsync = useRentalApplications({ listingId });
 
-  const handleAddOrupdate = (agreement?: RentalAgreement) => {
+  const handleAddOrupdate = (application?: RentalApplication) => {
     const dispose = launchWorkspace(
-      <></>,
-      // <ListingForm
-      //   listing={agreement}
-      //   onSuccess={() => dispose()}
-      //   onCloseWorkspace={() => dispose()}
-      // />,
+      <ListingApplicationForm
+        application={application}
+        onSuccess={() => dispose()}
+        onCloseWorkspace={() => dispose()}
+      />,
       {
-        title: agreement ? "Update tenant" : "Add Tenant",
+        title: application ? "Update Application" : "Add Application",
         width: "extra-wide",
         expandable: true,
       }
     );
   };
-  const handleDelete = (agreement: RentalAgreement) => {
+  const handleDelete = (application: RentalApplication) => {
     openConfirmModal({
       title: "Delete listing",
       children: (
@@ -49,56 +50,46 @@ const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
       },
     });
   };
-
   return (
-    <Stack>
-      <Box>
-        <DashboardPageHeader
-          title="Tenants"
-          subTitle={"Organization tenants"}
-          icon={"users"}
-        />
-      </Box>
-      <StateFullDataTable
-        // onAdd={() => handleAddOrupdate()}
-        columns={[
-          ...columns,
-          {
-            id: "actions",
-            header: "Actions",
-            cell({ row }) {
-              const listing = row.original;
-              return (
+    <StateFullDataTable
+      onAdd={() => handleAddOrupdate()}
+      columns={[
+        ...columns,
+        {
+          id: "actions",
+          header: "Actions",
+          cell({ row }) {
+            const listing = row.original;
+            return (
+              <Group>
                 <Group>
-                  <Group>
-                    <ActionIcon
-                      variant="outline"
-                      aria-label="Settings"
-                      color="red"
-                      onClick={() => handleDelete(listing)}
-                    >
-                      <TablerIcon
-                        name="trash"
-                        style={{ width: "70%", height: "70%" }}
-                        stroke={1.5}
-                      />
-                    </ActionIcon>
-                  </Group>
+                  <ActionIcon
+                    variant="outline"
+                    aria-label="Settings"
+                    color="red"
+                    onClick={() => handleDelete(listing)}
+                  >
+                    <TablerIcon
+                      name="trash"
+                      style={{ width: "70%", height: "70%" }}
+                      stroke={1.5}
+                    />
+                  </ActionIcon>
                 </Group>
-              );
-            },
+              </Group>
+            );
           },
-        ]}
-        {...agreementsAsync}
-        data={agreementsAsync.agreements}
-        withColumnViewOptions
-      />
-    </Stack>
+        },
+      ]}
+      {...applicationsAsync}
+      data={applicationsAsync.applications}
+      withColumnViewOptions
+    />
   );
 };
 
-export default OrganizationTenantsPage;
-const columns: ColumnDef<RentalAgreement>[] = [
+export default ListingApplicationsPage;
+const columns: ColumnDef<RentalApplication>[] = [
   // {
   //   accessorKey: "title",
   //   header: "Title",

@@ -1,8 +1,12 @@
 import * as React from "react";
 import type { PiletApi } from "@hive/esm-shell-app";
-import { OrganizationTenants, PropertyTenancyHistory } from "./pages";
+import {
+  ListingApplications,
+  OrganizationTenants,
+  PropertyTenancyHistory,
+} from "./pages";
 import { HeaderLink } from "@hive/esm-core-components";
-import { usePropertyChartProperty } from "./hooks";
+import { useListingChartListing, usePropertyChartProperty } from "./hooks";
 
 export function setup(app: PiletApi) {
   app.registerPage(
@@ -17,6 +21,13 @@ export function setup(app: PiletApi) {
     () => <PropertyTenancyHistory launchWorkspace={app.launchWorkspace} />,
     {
       layout: "propertyChart",
+    }
+  );
+  app.registerPage(
+    "/dashboard/listings/:listingId/applications",
+    () => <ListingApplications launchWorkspace={app.launchWorkspace} />,
+    {
+      layout: "listingChart",
     }
   );
   app.registerMenu(
@@ -42,5 +53,18 @@ export function setup(app: PiletApi) {
       );
     },
     { type: "propertyChart" as any }
+  );
+  app.registerMenu(
+    ({ onClose }: any) => {
+      const listingId = useListingChartListing();
+      return (
+        <HeaderLink
+          label="Applications"
+          to={`/dashboard/listings/${listingId}/applications`}
+          onClose={onClose ?? (() => {})}
+        />
+      );
+    },
+    { type: "listingChart" as any }
   );
 }

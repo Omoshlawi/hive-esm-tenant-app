@@ -36,6 +36,7 @@ const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
       //   tags: listing?.tags ?? [],
       //   price: listing?.price ? Number(listing.price) : undefined,
       //   type: listing?.type,
+      mode: "search",
     },
     resolver: zodResolver(TenantValidator),
   });
@@ -47,10 +48,8 @@ const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
         "tenantType",
         "specialRequirements",
         "preferredContactMethod",
-        "monthlyIncome",
         "languagePreference",
         "internalNotes",
-        "employmentStatus",
       ],
       emmergency: [
         "emergencyContactEmail",
@@ -137,7 +136,7 @@ const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
                 Basic info
               </Tabs.Tab>
               <Tabs.Tab p={"lg"} value={"person"}>
-                Applicant
+                person info
               </Tabs.Tab>
               <Tabs.Tab p={"lg"} value={"emmergency"}>
                 Contact

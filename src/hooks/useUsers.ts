@@ -1,4 +1,9 @@
-import { APIFetchResponse, constructUrl, User } from "@hive/esm-core-api";
+import {
+  APIFetchResponse,
+  constructUrl,
+  Person,
+  User,
+} from "@hive/esm-core-api";
 import { useDebouncedValue } from "@mantine/hooks";
 import { useState } from "react";
 import useSWR from "swr";
@@ -33,5 +38,24 @@ export const useContactPerson = (userId: string) => {
     contactPerson: data?.data,
     isLoading,
     error,
+  };
+};
+
+export const useSearchPeople = () => {
+  const [search, setSearch] = useState<string>();
+  const [debounced] = useDebouncedValue(search, 500);
+  const url = constructUrl("/person", {
+    search: debounced,
+    v: "custom:include(user)",
+  });
+  const { data, error, isLoading } = useSWR<
+    APIFetchResponse<{ results: Array<Person> }>
+  >(debounced ? url : undefined);
+  return {
+    people: data?.data?.results ?? [],
+    isLoading,
+    error,
+    searchPeople: setSearch,
+    peopleSearchValue: search,
   };
 };

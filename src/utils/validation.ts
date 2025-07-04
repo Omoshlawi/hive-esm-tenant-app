@@ -50,19 +50,11 @@ export const TenenantReferenceValidator = z.object({
 });
 
 export const CoApplicantValidator = z.object({
-  tenantNumber: z
-    .string()
-    .regex(
-      /^TNT-\d{6,12}$/,
-      "Tenant number must follow the format 'TNT-######' (6-12 digits)"
-    )
-    .optional(),
+  personId: z.string().nonempty().uuid("Invalid"),
   relationshipType: z.string().nonempty(),
 });
 export const RentalApplicationValidator = z.object({
-  tenantId: z.string().nonempty().uuid("Invalid").optional(),
-  tenantMode:z.enum(["CREATE", "SEARCH"]),
-  tenantInfo: TenantValidator.optional(),
+  personId: z.string().nonempty().uuid("Invalid"),
   listingId: z.string().nonempty().uuid("Invalid"),
   desiredMoveInDate: z.date({ coerce: true }),
   leaseTerm: z.number({ coerce: true }).nonnegative().optional(),

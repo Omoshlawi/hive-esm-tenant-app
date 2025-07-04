@@ -63,7 +63,7 @@ const ListingApplicationForm: FC<Props> = ({
       ],
       "co-applicants": ["coApplicants"],
       references: ["references"],
-      tenant: ["tenantId"],
+      tenant: ["personId"],
     };
 
     for (const [step, fields] of Object.entries(fieldSteps)) {

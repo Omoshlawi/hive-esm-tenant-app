@@ -2,6 +2,8 @@ import * as React from "react";
 import type { PiletApi } from "@hive/esm-shell-app";
 import {
   ListingApplications,
+  OrganizationApplications,
+  OrganizationRentalAgreements,
   OrganizationTenants,
   PropertyTenancyHistory,
 } from "./pages";
@@ -12,6 +14,20 @@ export function setup(app: PiletApi) {
   app.registerPage(
     "/dashboard/tenants",
     () => <OrganizationTenants launchWorkspace={app.launchWorkspace} />,
+    {
+      layout: "dashboard",
+    }
+  );
+  app.registerPage(
+    "/dashboard/applications",
+    () => <OrganizationApplications />,
+    {
+      layout: "dashboard",
+    }
+  );
+  app.registerPage(
+    "/dashboard/rental-agreements",
+    () => <OrganizationRentalAgreements />,
     {
       layout: "dashboard",
     }
@@ -36,6 +52,28 @@ export function setup(app: PiletApi) {
         label="Tenants"
         to="/dashboard/tenants"
         icon="users"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
+  );
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <HeaderLink
+        label="Applications"
+        to="/dashboard/applications"
+        icon="homeQuestion"
+        onClose={onClose ?? (() => {})}
+      />
+    ),
+    { type: "admin" }
+  );
+  app.registerMenu(
+    ({ onClose }: any) => (
+      <HeaderLink
+        label="Agreements"
+        to="/dashboard/rental-agreements"
+        icon="contract"
         onClose={onClose ?? (() => {})}
       />
     ),

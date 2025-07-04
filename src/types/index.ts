@@ -5,6 +5,7 @@ import {
   TenantValidator,
   TenenantReferenceValidator,
 } from "../utils/validation";
+import { Person } from "@hive/esm-core-api";
 
 export interface Listing {
   id: string;
@@ -198,6 +199,38 @@ export interface RentalApplication {
 
 export interface Tenant {
   id: string;
+  personId: string;
+  person: Pick<
+    Person,
+    | "avatarUrl"
+    | "firstName"
+    | "lastName"
+    | "email"
+    | "gender"
+    | "name"
+    | "phoneNumber"
+    | "surname"
+  >;
+  organizationId: string;
+  organization?: any;
+  tenantNumber: string;
+  tenantType: "INDIVIDUAL" | "COUPLE" | "FAMILY" | "ROOMMATES" | "CORPORATE";
+  status: "ACTIVE" | "INACTIVE" | "BLACKLISTED";
+  creditScore?: number;
+  emergencyContactName?: string;
+  emergencyContactPhone?: string;
+  emergencyContactEmail?: string;
+  emergencyContactRelation?: string;
+  preferredContactMethod: "EMAIL" | "PHONE" | "SMS" | "MAIL" | "IN_PERSON";
+  languagePreference?: string;
+  specialRequirements?: string;
+  internalNotes?: string;
+  tags: Array<string>;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+  voided: boolean;
 }
 
 export type RentalApplicationFormData = z.infer<

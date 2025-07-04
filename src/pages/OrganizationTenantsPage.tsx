@@ -5,13 +5,14 @@ import {
   TablerIcon,
 } from "@hive/esm-core-components";
 import { PiletApi } from "@hive/esm-shell-app";
-import { ActionIcon, Box, Group, Stack, Text } from "@mantine/core";
+import { ActionIcon, Box, Button, Group, Stack, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { ColumnDef } from "@tanstack/react-table";
 import React, { FC } from "react";
 import TenantForm from "../forms/TenantForm";
 import { useTenants } from "../hooks";
 import { RentalAgreement, Tenant } from "../types";
+import { Link } from "react-router-dom";
 type Props = Pick<PiletApi, "launchWorkspace">;
 
 const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
@@ -73,6 +74,18 @@ const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
                     <ActionIcon
                       variant="outline"
                       aria-label="Settings"
+                      color="green"
+                      onClick={() => handleAddOrupdate(listing)}
+                    >
+                      <TablerIcon
+                        name="edit"
+                        style={{ width: "70%", height: "70%" }}
+                        stroke={1.5}
+                      />
+                    </ActionIcon>
+                    <ActionIcon
+                      variant="outline"
+                      aria-label="Settings"
                       color="red"
                       onClick={() => handleDelete(listing)}
                     >
@@ -97,76 +110,44 @@ const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
 };
 
 export default OrganizationTenantsPage;
-const columns: ColumnDef<RentalAgreement>[] = [
-  // {
-  //   accessorKey: "title",
-  //   header: "Title",
-  //   cell({ row }) {
-  //     const listing = row.original;
-  //     const link = `/dashboard/listings/${listing.id}`;
-  //     return (
-  //       <Button variant="transparent" component={Link} to={link}>
-  //         {listing.title}
-  //       </Button>
-  //     );
-  //   },
-  // },
-  // {
-  //   accessorKey: "type",
-  //   header: "Type",
-  //   cell({ getValue }) {
-  //     const type = getValue<RentalAgreement["type"]>();
-  //     return (
-  //       <Badge variant="outline" color={getListingTypeColor(type)} size="xs">
-  //         {type}
-  //       </Badge>
-  //     );
-  //   },
-  // },
-  // {
-  //   accessorKey: "listedDate",
-  //   header({ column }) {
-  //     return <DataTableColumnHeader column={column} title="Date listed" />;
-  //   },
-  //   cell({ getValue }) {
-  //     const created = getValue<string>();
-  //     return new Date(created).toDateString();
-  //   },
-  // },
-  // {
-  //   accessorKey: "price",
-  //   header({ column }) {
-  //     return <DataTableColumnHeader column={column} title="Price" />;
-  //   },
-  // },
-  // {
-  //   accessorKey: "expiryDate",
-  //   header({ column }) {
-  //     return <DataTableColumnHeader column={column} title="Expiry Date" />;
-  //   },
-  //   cell({ getValue }) {
-  //     const created = getValue<string>();
-  //     return new Date(created).toDateString();
-  //   },
-  // },
-  // {
-  //   accessorKey: "status",
-  //   header({ column }) {
-  //     return <DataTableColumnHeader column={column} title="Status" />;
-  //   },
-  //   cell({ getValue }) {
-  //     const status = getValue<Listing["status"]>();
-  //     const colorScheme = useComputedColorScheme();
-  //     return (
-  //       <Badge
-  //         color={getStatusColor(status)}
-  //         variant={getStatusVariant(status, colorScheme)}
-  //       >
-  //         {status}
-  //       </Badge>
-  //     );
-  //   },
-  // },
+const columns: ColumnDef<Tenant>[] = [
+  {
+    accessorKey: "person.email",
+    header: "Email",
+    cell({ row }) {
+      const tenant = row.original;
+      const link = `/dashboard/tenants/${tenant.id}`;
+      return (
+        <Button variant="transparent" component={Link} to={link}>
+          {tenant.person.email ?? "--"}
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "person.name",
+    header: "Name",
+    cell({ getValue }) {
+      const name = getValue<string | null>();
+      return name ?? "--";
+    },
+  },
+  {
+    accessorKey: "person.phoneNumber",
+    header: "Name",
+    cell({ getValue }) {
+      const name = getValue<string | null>();
+      return name ?? "--";
+    },
+  },
+  {
+    accessorKey: "person.gender",
+    header: "Gender",
+    cell({ getValue }) {
+      const name = getValue<string | null>();
+      return name ?? "--";
+    },
+  },
   {
     accessorKey: "createdAt",
     header({ column }) {

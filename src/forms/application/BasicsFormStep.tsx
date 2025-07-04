@@ -1,8 +1,16 @@
-import { Button, Group, Stack, Title } from "@mantine/core";
+import {
+  Button,
+  Group,
+  NumberInput,
+  Stack,
+  Textarea,
+  Title,
+} from "@mantine/core";
 import React, { FC } from "react";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { RentalApplicationFormData } from "../../types";
-
+import { DateInput } from "@mantine/dates";
+import { INPUT_ORDER } from "../../utils/constants";
 type Props = {
   onNext?: () => void;
   onCancel?: () => void;
@@ -15,7 +23,91 @@ const BasicsFormStep: FC<Props> = ({ onCancel, onNext }) => {
       <Stack gap={"md"}>
         <Title order={4} pt={"lg"}>
           Basic Information
-        </Title>{" "}
+        </Title>
+        <Controller
+          control={form.control}
+          name="desiredMoveInDate"
+          render={({ field, fieldState }) => (
+            <DateInput
+              {...field}
+              label="Desired move in date"
+              description="Must be a future time"
+              inputWrapperOrder={INPUT_ORDER}
+              error={fieldState.error?.message}
+              placeholder="dd/mm/yyyy"
+            />
+          )}
+        />
+        <Controller
+          control={form.control}
+          name="leaseTerm"
+          render={({ field, fieldState }) => (
+            <NumberInput
+              {...field}
+              label="Lease term"
+              description="In moths"
+              inputWrapperOrder={INPUT_ORDER}
+              error={fieldState.error?.message}
+              placeholder="Enter lease term"
+            />
+          )}
+        />
+        <Controller
+          control={form.control}
+          name="proposedRent"
+          render={({ field, fieldState }) => (
+            <NumberInput
+              {...field}
+              label="Proposed rent"
+              description={"In Ksh"}
+              inputWrapperOrder={INPUT_ORDER}
+              error={fieldState.error?.message}
+              placeholder="Enter amount"
+            />
+          )}
+        />
+        <Controller
+          control={form.control}
+          name="securityDeposit"
+          render={({ field, fieldState }) => (
+            <NumberInput
+              {...field}
+              label="Security deposit"
+              description={"In Ksh"}
+              inputWrapperOrder={INPUT_ORDER}
+              error={fieldState.error?.message}
+              placeholder="Enter amount"
+            />
+          )}
+        />
+        <Controller
+          control={form.control}
+          name="petDetails"
+          render={({ field, fieldState }) => (
+            <Textarea
+              {...field}
+              label="Pet details"
+              description={"If you have pert"}
+              inputWrapperOrder={INPUT_ORDER}
+              error={fieldState.error?.message}
+              placeholder="Enter pet details ..."
+            />
+          )}
+        />
+        <Controller
+          control={form.control}
+          name="vehicleInfo"
+          render={({ field, fieldState }) => (
+            <Textarea
+              {...field}
+              label="Vehicle info"
+              description={"Enter vehicle info for parking lot alocation"}
+              inputWrapperOrder={INPUT_ORDER}
+              error={fieldState.error?.message}
+              placeholder="Enter vehicle details ..."
+            />
+          )}
+        />
       </Stack>
       <Group gap={1}>
         <Button flex={1} variant="default" radius={0} onClick={onCancel}>
@@ -31,7 +123,6 @@ const BasicsFormStep: FC<Props> = ({ onCancel, onNext }) => {
           disabled={form.formState.isSubmitting}
           onClick={async () => {
             const valid = await form.trigger([
-              "desiredMoveInDate",
               "desiredMoveInDate",
               "leaseTerm",
               "petDetails",

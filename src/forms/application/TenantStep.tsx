@@ -1,6 +1,6 @@
-import { Button, Group, Stack, Title } from "@mantine/core";
+import { Button, Group, SegmentedControl, Stack, Title } from "@mantine/core";
 import React, { FC } from "react";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { RentalApplicationFormData } from "../../types";
 type Props = {
   onNext?: () => void;
@@ -15,6 +15,20 @@ const TenantStep: FC<Props> = ({ onNext, onPrev }) => {
         <Title order={4} pt={"lg"}>
           Tenant
         </Title>
+        <Controller
+          control={form.control}
+          name="tenantMode"
+          render={({ field, fieldState: { error } }) => (
+            <SegmentedControl
+              value={field.value}
+              onChange={field.onChange}
+              data={[
+                { label: "Search", value: "SEARCH" },
+                { label: "Create", value: "CREATE" },
+              ]}
+            />
+          )}
+        />
       </Stack>
       <Group gap={1}>
         <Button flex={1} variant="default" radius={0} onClick={onPrev}>

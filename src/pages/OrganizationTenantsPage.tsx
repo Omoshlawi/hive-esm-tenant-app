@@ -1,32 +1,31 @@
-import React, { FC } from "react";
 import {
   DashboardPageHeader,
   DataTableColumnHeader,
   StateFullDataTable,
   TablerIcon,
 } from "@hive/esm-core-components";
-import { ActionIcon, Box, Group, Stack } from "@mantine/core";
-import { useRentalAgreements } from "../hooks";
-import { ColumnDef } from "@tanstack/react-table";
-import { RentalAgreement } from "../types";
 import { PiletApi } from "@hive/esm-shell-app";
+import { ActionIcon, Box, Group, Stack, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
-import { Text } from "@mantine/core";
+import { ColumnDef } from "@tanstack/react-table";
+import React, { FC } from "react";
+import TenantForm from "../forms/TenantForm";
+import { useTenants } from "../hooks";
+import { RentalAgreement, Tenant } from "../types";
 type Props = Pick<PiletApi, "launchWorkspace">;
 
 const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
-  const agreementsAsync = useRentalAgreements();
+  const tenantsAsync = useTenants();
 
-  const handleAddOrupdate = (agreement?: RentalAgreement) => {
+  const handleAddOrupdate = (tenant?: Tenant) => {
     const dispose = launchWorkspace(
-      <></>,
-      // <ListingForm
-      //   listing={agreement}
-      //   onSuccess={() => dispose()}
-      //   onCloseWorkspace={() => dispose()}
-      // />,
+      <TenantForm
+        tenant={tenant}
+        onSuccess={() => dispose()}
+        onCloseWorkspace={() => dispose()}
+      />,
       {
-        title: agreement ? "Update tenant" : "Add Tenant",
+        title: tenant ? "Update tenant" : "Add Tenant",
         width: "extra-wide",
         expandable: true,
       }
@@ -60,7 +59,7 @@ const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
         />
       </Box>
       <StateFullDataTable
-        // onAdd={() => handleAddOrupdate()}
+        onAdd={() => handleAddOrupdate()}
         columns={[
           ...columns,
           {
@@ -89,8 +88,8 @@ const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
             },
           },
         ]}
-        {...agreementsAsync}
-        data={agreementsAsync.agreements}
+        {...tenantsAsync}
+        data={tenantsAsync.tenants}
         withColumnViewOptions
       />
     </Stack>

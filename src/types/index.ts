@@ -196,6 +196,10 @@ export interface RentalApplication {
   id: string;
 }
 
+export interface Tenant {
+  id: string;
+}
+
 export type RentalApplicationFormData = z.infer<
   typeof RentalApplicationValidator
 >;

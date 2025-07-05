@@ -1,12 +1,15 @@
 import {
+  apiFetch,
   APIFetchResponse,
   constructUrl,
+  mutate,
   Person,
   User,
 } from "@hive/esm-core-api";
 import { useDebouncedValue } from "@mantine/hooks";
 import { useState } from "react";
 import useSWR from "swr";
+import { PersonFormData } from "../types";
 
 export const useSearchUser = () => {
   const [search, setSearch] = useState<string>();
@@ -57,5 +60,43 @@ export const useSearchPeople = () => {
     error,
     searchPeople: setSearch,
     peopleSearchValue: search,
+  };
+};
+
+const addPerson = async (data: PersonFormData) => {
+  const res = await apiFetch<Person>("/person", {
+    method: "POST",
+    data,
+  });
+  return res.data;
+};
+
+const updatePerson = async (
+  id: string,
+  data: PersonFormData,
+  method: "PUT" | "PATCH" = "PATCH"
+) => {
+  const res = await apiFetch<Person>(`/person/${id}`, {
+    method: method,
+    data,
+  });
+  return res.data;
+};
+
+const deletePerson = async (
+  id: string,
+  method: "DELETE" | "PURGE" = "DELETE"
+) => {
+  const res = await apiFetch<Person>(`/person/${id}`, {
+    method: method,
+  });
+  return res.data;
+};
+export const usePersonApi = () => {
+  return {
+    addPerson,
+    updatePerson,
+    deletePerson,
+    mutatePerson: () => mutate("/person"),
   };
 };

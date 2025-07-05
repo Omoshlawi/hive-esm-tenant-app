@@ -11,6 +11,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { RentalApplicationFormData } from "../../types";
 import { DateInput } from "@mantine/dates";
 import { INPUT_ORDER } from "../../utils/constants";
+import PersonInput from "../common/PersonInput";
 type Props = {
   onNext?: () => void;
   onCancel?: () => void;
@@ -24,6 +25,7 @@ const BasicsFormStep: FC<Props> = ({ onCancel, onNext }) => {
         <Title order={4} pt={"lg"}>
           Basic Information
         </Title>
+        <PersonInput control={form.control} name="personId" label="Applicant"/>
         <Controller
           control={form.control}
           name="desiredMoveInDate"
@@ -129,6 +131,7 @@ const BasicsFormStep: FC<Props> = ({ onCancel, onNext }) => {
               "proposedRent",
               "securityDeposit",
               "vehicleInfo",
+              "personId"
             ]);
             if (valid) onNext?.();
           }}

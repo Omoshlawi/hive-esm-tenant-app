@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMediaQuery } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import { handleApiErrors } from "@hive/esm-core-api";
-import { BasicStep, PersonStep, EmergencyContactStep } from "./tenant";
+import { BasicStep, EmergencyContactStep } from "./tenant";
 import { Paper, Tabs } from "@mantine/core";
 type Props = {
   tenant?: Tenant;
@@ -21,7 +21,7 @@ type Props = {
   onCloseWorkspace?: () => void;
 };
 
-type FormSteps = "basic" | "person" | "emmergency";
+type FormSteps = "basic" | "emmergency";
 
 const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
   const { addTenant, updateTenant, mutateTenants } = useTenantApi();
@@ -36,7 +36,6 @@ const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
       //   tags: listing?.tags ?? [],
       //   price: listing?.price ? Number(listing.price) : undefined,
       //   type: listing?.type,
-      mode: "search",
     },
     resolver: zodResolver(TenantValidator),
   });
@@ -50,6 +49,7 @@ const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
         "preferredContactMethod",
         "languagePreference",
         "internalNotes",
+        "personId",
       ],
       emmergency: [
         "emergencyContactEmail",
@@ -57,7 +57,6 @@ const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
         "emergencyContactPhone",
         "emergencyContactRelation",
       ],
-      person: ["personId"],
     };
 
     for (const [step, fields] of Object.entries(fieldSteps)) {
@@ -135,28 +134,20 @@ const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
               <Tabs.Tab p={"lg"} value={"basic"}>
                 Basic info
               </Tabs.Tab>
-              <Tabs.Tab p={"lg"} value={"person"}>
-                person info
-              </Tabs.Tab>
+
               <Tabs.Tab p={"lg"} value={"emmergency"}>
-                Contact
+                Contact Info
               </Tabs.Tab>
             </Tabs.List>
 
             <Tabs.Panel value={"basic"} p={"sm"}>
               <BasicStep
                 onCancel={onCloseWorkspace}
-                onNext={() => setActiveTab("person")}
-              />
-            </Tabs.Panel>
-            <Tabs.Panel value={"person"} p={"sm"}>
-              <PersonStep
-                onPrev={() => setActiveTab("basic")}
                 onNext={() => setActiveTab("emmergency")}
               />
             </Tabs.Panel>
             <Tabs.Panel value={"emmergency"} p={"sm"}>
-              <EmergencyContactStep onPrev={() => setActiveTab("person")} />
+              <EmergencyContactStep onPrev={() => setActiveTab("basic")} />
             </Tabs.Panel>
           </Tabs>
         </Paper>

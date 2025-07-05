@@ -1,17 +1,17 @@
 import {
-  Stack,
-  Title,
-  Group,
   Button,
+  Group,
   Select,
+  Stack,
   TagsInput,
   Textarea,
-  NumberInput,
+  Title,
 } from "@mantine/core";
 import React, { FC } from "react";
-import { TenantFormData } from "../../types";
 import { Controller, useFormContext } from "react-hook-form";
+import { TenantFormData } from "../../types";
 import { INPUT_ORDER } from "../../utils/constants";
+import PersonInput from "../common/PersonInput";
 type Props = {
   onNext?: () => void;
   onCancel?: () => void;
@@ -25,6 +25,7 @@ const BasicStep: FC<Props> = ({ onCancel, onNext }) => {
         <Title order={4} pt={"lg"}>
           Basic Information
         </Title>
+        <PersonInput control={form.control} name="personId" />
         <Controller
           control={form.control}
           name="tenantType"
@@ -147,6 +148,7 @@ const BasicStep: FC<Props> = ({ onCancel, onNext }) => {
               "preferredContactMethod",
               "languagePreference",
               "internalNotes",
+              "personId",
             ]);
             if (valid) onNext?.();
           }}

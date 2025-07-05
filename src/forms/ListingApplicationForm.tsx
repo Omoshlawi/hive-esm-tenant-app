@@ -1,23 +1,22 @@
-import React, { FC, useCallback, useState } from "react";
-import { RentalApplication, RentalApplicationFormData } from "../types";
-import { RentalApplicationValidator } from "../utils/validation";
+import { handleApiErrors } from "@hive/esm-core-api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Paper, Tabs } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
+import { showNotification } from "@mantine/notifications";
+import React, { FC, useCallback, useState } from "react";
 import {
   FieldPath,
   FormProvider,
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { useMediaQuery } from "@mantine/hooks";
-import { showNotification } from "@mantine/notifications";
 import { useRentalApplicationApi } from "../hooks";
-import { handleApiErrors } from "@hive/esm-core-api";
-import { Paper, Tabs } from "@mantine/core";
+import { RentalApplication, RentalApplicationFormData } from "../types";
+import { RentalApplicationValidator } from "../utils/validation";
 import {
   BasicsFormStep,
   CoApplicantsStep,
   ReferencesStep,
-  TenantStep,
 } from "./application";
 type Props = {
   application?: RentalApplication;
@@ -25,7 +24,7 @@ type Props = {
   onCloseWorkspace?: () => void;
 };
 
-type FormSteps = "basic" | "tenant" | "co-applicants" | "references";
+type FormSteps = "basic" | "co-applicants" | "references";
 
 const ListingApplicationForm: FC<Props> = ({
   application,
@@ -60,10 +59,10 @@ const ListingApplicationForm: FC<Props> = ({
         "proposedRent",
         "securityDeposit",
         "vehicleInfo",
+        "personId",
       ],
       "co-applicants": ["coApplicants"],
       references: ["references"],
-      tenant: ["personId"],
     };
 
     for (const [step, fields] of Object.entries(fieldSteps)) {
@@ -145,9 +144,6 @@ const ListingApplicationForm: FC<Props> = ({
               <Tabs.Tab p={"lg"} value={"basic"}>
                 Basic
               </Tabs.Tab>
-              <Tabs.Tab p={"lg"} value={"tenant"}>
-                Tenant
-              </Tabs.Tab>
               <Tabs.Tab p={"lg"} value={"references"}>
                 References
               </Tabs.Tab>
@@ -159,18 +155,12 @@ const ListingApplicationForm: FC<Props> = ({
             <Tabs.Panel value={"basic"} p={"sm"}>
               <BasicsFormStep
                 onCancel={onCloseWorkspace}
-                onNext={() => setActiveTab("tenant")}
-              />
-            </Tabs.Panel>
-            <Tabs.Panel value={"tenant"} p={"sm"}>
-              <TenantStep
-                onPrev={() => setActiveTab("basic")}
                 onNext={() => setActiveTab("references")}
               />
             </Tabs.Panel>
             <Tabs.Panel value={"references"} p={"sm"}>
               <ReferencesStep
-                onPrev={() => setActiveTab("tenant")}
+                onPrev={() => setActiveTab("basic")}
                 onNext={() => setActiveTab("co-applicants")}
               />
             </Tabs.Panel>

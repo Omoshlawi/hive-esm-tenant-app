@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   CoApplicantValidator,
+  Personvalidator,
   RentalApplicationValidator,
   TenantValidator,
   TenenantReferenceValidator,
@@ -236,6 +237,7 @@ export interface Tenant {
 export type RentalApplicationFormData = z.infer<
   typeof RentalApplicationValidator
 >;
+export type PersonFormData = z.infer<typeof Personvalidator>;
 
 export type CoApplicantFormData = z.infer<typeof CoApplicantValidator>;
 export type TenenantReferenceFormData = z.infer<

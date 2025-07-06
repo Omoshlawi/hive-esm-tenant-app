@@ -19,6 +19,7 @@ import {
   ReferencesStep,
 } from "./application";
 type Props = {
+  listingId: string;
   application?: RentalApplication;
   onSuccess?: (application: RentalApplication) => void;
   onCloseWorkspace?: () => void;
@@ -30,6 +31,7 @@ const ListingApplicationForm: FC<Props> = ({
   application,
   onCloseWorkspace,
   onSuccess,
+  listingId,
 }) => {
   const { addApplication, updateApplication, mutateAppointments } =
     useRentalApplicationApi();
@@ -42,6 +44,7 @@ const ListingApplicationForm: FC<Props> = ({
       //   tags: listing?.tags ?? [],
       //   price: listing?.price ? Number(listing.price) : undefined,
       //   type: listing?.type,
+      listingId,
     },
     resolver: zodResolver(RentalApplicationValidator),
   });
@@ -108,11 +111,19 @@ const ListingApplicationForm: FC<Props> = ({
         showNotification({ title: "Error", message: e.detail, color: "red" });
       } else {
         // Set all backend validation errors
-        Object.entries(e).forEach(([key, val]) =>
-          form.setError(key as keyof RentalApplicationFormData, {
-            message: val,
-          })
-        );
+        Object.entries(e).forEach(([key, val]) => {
+          if (key === "listingId")
+            showNotification({
+              color: "red",
+              title: "Invalid listing",
+              message: val,
+            });
+          else
+            form.setError(key as keyof RentalApplicationFormData, {
+              message: val,
+            });
+        });
+
         setTimeout(() => {
           // Without setTimeout - runs immediately in same stack:
           navigateToErrorStep();

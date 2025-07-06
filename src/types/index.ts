@@ -196,6 +196,38 @@ export interface RentalAgreement {
 
 export interface RentalApplication {
   id: string;
+  organizationId: string;
+  personId: string;
+  propertyId: string;
+  listingId: string;
+  applicationNumber: string;
+  status:
+    | "DRAFT"
+    | "PENDING"
+    | "UNDER_REVIEW"
+    | "APPROVED"
+    | "REJECTED"
+    | "WITHDRAWN"
+    | "EXPIRED"
+    | "CONDITIONAL_APPROVAL";
+  desiredMoveInDate: string;
+  leaseTerm?: number;
+  proposedRent?: number;
+  securityDeposit?: number;
+  petDetails?: string;
+  vehicleInfo?: string;
+  screeningScore?: string;
+  manualReviewNeeded: boolean;
+  assignedToUser?: string;
+  internalNotes?: string;
+  backgroundCheckStatus: string;
+  backgroundCheckDate?: string;
+  identityVerified: boolean;
+  incomeVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
+  person?: Person;
+  voided: boolean;
 }
 
 export interface Tenant {

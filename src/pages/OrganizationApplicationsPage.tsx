@@ -10,6 +10,7 @@ import { useRentalApplications } from "../hooks";
 import { RentalApplication } from "../types";
 import { openConfirmModal } from "@mantine/modals";
 import { ColumnDef } from "@tanstack/react-table";
+import { columns } from "../components/application/columns";
 
 const OrganizationApplicationsPage = () => {
   const applicationsAsync = useRentalApplications();
@@ -77,84 +78,3 @@ const OrganizationApplicationsPage = () => {
 };
 
 export default OrganizationApplicationsPage;
-const columns: ColumnDef<RentalApplication>[] = [
-  // {
-  //   accessorKey: "title",
-  //   header: "Title",
-  //   cell({ row }) {
-  //     const listing = row.original;
-  //     const link = `/dashboard/listings/${listing.id}`;
-  //     return (
-  //       <Button variant="transparent" component={Link} to={link}>
-  //         {listing.title}
-  //       </Button>
-  //     );
-  //   },
-  // },
-  // {
-  //   accessorKey: "type",
-  //   header: "Type",
-  //   cell({ getValue }) {
-  //     const type = getValue<RentalAgreement["type"]>();
-  //     return (
-  //       <Badge variant="outline" color={getListingTypeColor(type)} size="xs">
-  //         {type}
-  //       </Badge>
-  //     );
-  //   },
-  // },
-  // {
-  //   accessorKey: "listedDate",
-  //   header({ column }) {
-  //     return <DataTableColumnHeader column={column} title="Date listed" />;
-  //   },
-  //   cell({ getValue }) {
-  //     const created = getValue<string>();
-  //     return new Date(created).toDateString();
-  //   },
-  // },
-  // {
-  //   accessorKey: "price",
-  //   header({ column }) {
-  //     return <DataTableColumnHeader column={column} title="Price" />;
-  //   },
-  // },
-  // {
-  //   accessorKey: "expiryDate",
-  //   header({ column }) {
-  //     return <DataTableColumnHeader column={column} title="Expiry Date" />;
-  //   },
-  //   cell({ getValue }) {
-  //     const created = getValue<string>();
-  //     return new Date(created).toDateString();
-  //   },
-  // },
-  // {
-  //   accessorKey: "status",
-  //   header({ column }) {
-  //     return <DataTableColumnHeader column={column} title="Status" />;
-  //   },
-  //   cell({ getValue }) {
-  //     const status = getValue<Listing["status"]>();
-  //     const colorScheme = useComputedColorScheme();
-  //     return (
-  //       <Badge
-  //         color={getStatusColor(status)}
-  //         variant={getStatusVariant(status, colorScheme)}
-  //       >
-  //         {status}
-  //       </Badge>
-  //     );
-  //   },
-  // },
-  {
-    accessorKey: "createdAt",
-    header({ column }) {
-      return <DataTableColumnHeader column={column} title="Date Created" />;
-    },
-    cell({ getValue }) {
-      const created = getValue<string>();
-      return new Date(created).toDateString();
-    },
-  },
-];

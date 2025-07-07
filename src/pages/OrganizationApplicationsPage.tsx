@@ -10,7 +10,7 @@ import { useRentalApplications } from "../hooks";
 import { RentalApplication } from "../types";
 import { openConfirmModal } from "@mantine/modals";
 import { ColumnDef } from "@tanstack/react-table";
-import { columns } from "../components/application/columns";
+import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
 
 const OrganizationApplicationsPage = () => {
   const applicationsAsync = useRentalApplications();
@@ -40,9 +40,8 @@ const OrganizationApplicationsPage = () => {
           icon={"homeQuestion"}
         />
       </Box>
-      <StateFullDataTable
-        columns={[
-          ...columns,
+      <RenatlApplicationTable
+        actions={[
           {
             id: "actions",
             header: "Actions",
@@ -69,9 +68,7 @@ const OrganizationApplicationsPage = () => {
             },
           },
         ]}
-        {...applicationsAsync}
-        data={applicationsAsync.applications}
-        withColumnViewOptions
+        applicationsAsync={applicationsAsync}
       />
     </Stack>
   );

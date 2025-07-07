@@ -7,7 +7,7 @@ import { useParams } from "react-router";
 import ListingApplicationForm from "../forms/ListingApplicationForm";
 import { useRentalApplications } from "../hooks";
 import { RentalApplication } from "../types";
-import { columns } from "../components/application/columns";
+import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
 
 type Props = Pick<PiletApi, "launchWorkspace">;
 
@@ -48,10 +48,9 @@ const ListingApplicationsPage: FC<Props> = ({ launchWorkspace }) => {
     });
   };
   return (
-    <StateFullDataTable
-      onAdd={() => handleAddOrupdate()}
-      columns={[
-        ...columns,
+    <RenatlApplicationTable
+      onAddOrupdate={handleAddOrupdate}
+      actions={[
         {
           id: "actions",
           header: "Actions",
@@ -78,9 +77,7 @@ const ListingApplicationsPage: FC<Props> = ({ launchWorkspace }) => {
           },
         },
       ]}
-      {...applicationsAsync}
-      data={applicationsAsync.applications}
-      withColumnViewOptions
+      applicationsAsync={applicationsAsync}
     />
   );
 };

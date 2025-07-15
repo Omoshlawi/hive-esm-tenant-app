@@ -1,4 +1,4 @@
-import { Paper, Tabs } from "@mantine/core";
+import { Button, Group, Paper, Stack, Tabs } from "@mantine/core";
 import {
   IconPhoto,
   IconMessageCircle,
@@ -8,6 +8,7 @@ import React, { FC } from "react";
 import DetailsTab from "./DetailsTab";
 import ReferenceTab from "./ReferenceTab";
 import CoApplicantsTab from "./CoApplicantsTab";
+import ApplicationActions from "./ApplicationActions";
 
 type Props = {
   applicationId: string;
@@ -15,7 +16,8 @@ type Props = {
 
 const RentalApplicationDetail: FC<Props> = ({ applicationId }) => {
   return (
-    <Paper p={"sm"}>
+    <Paper p={"sm"} component={Stack}>
+      <ApplicationActions applicationId={applicationId} />
       <Tabs defaultValue="details" orientation="vertical">
         <Tabs.List>
           <Tabs.Tab value="details" leftSection={<IconPhoto size={12} />}>
@@ -36,15 +38,15 @@ const RentalApplicationDetail: FC<Props> = ({ applicationId }) => {
         </Tabs.List>
 
         <Tabs.Panel value="details">
-          <DetailsTab />
+          <DetailsTab applicationId={applicationId} />
         </Tabs.Panel>
 
         <Tabs.Panel value="references">
-          <ReferenceTab />
+          <ReferenceTab applicationId={applicationId} />
         </Tabs.Panel>
 
         <Tabs.Panel value="co-applicants">
-          <CoApplicantsTab />
+          <CoApplicantsTab applicationId={applicationId} />
         </Tabs.Panel>
       </Tabs>
     </Paper>

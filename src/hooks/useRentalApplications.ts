@@ -1,5 +1,10 @@
 import useSWR from "swr";
-import { RentalApplication, RentalApplicationFormData } from "../types";
+import {
+  RentalApplication,
+  RentalApplicationCoApplicants,
+  RentalApplicationFormData,
+  RentalApplicationReference,
+} from "../types";
 import {
   apiFetch,
   APIFetchResponse,
@@ -17,6 +22,59 @@ export const useRentalApplications = (params: Record<string, any> = {}) => {
     error,
     isLoading,
     totalCount: data?.data?.totalCount,
+  };
+};
+
+export const useRentalApplication = (
+  id: string,
+  params: Record<string, any> = {}
+) => {
+  const url = constructUrl(`/rental-applications/${id}`, {
+    ...params,
+  });
+  const { data, error, isLoading } =
+    useSWR<APIFetchResponse<RentalApplication>>(url);
+  return {
+    application: data?.data,
+    error,
+    isLoading,
+  };
+};
+export const useRentalApplicationReferences = (
+  applicationId: string,
+  params: Record<string, any> = {}
+) => {
+  const url = constructUrl(`/rental-applications/${applicationId}/references`, {
+    pageSize: 100,
+    ...params,
+  });
+  const { data, error, isLoading } =
+    useSWR<APIFetchResponse<APIListResponse<RentalApplicationReference>>>(url);
+  return {
+    references: data?.data?.results ?? [],
+    error,
+    isLoading,
+  };
+};
+export const useRentalApplicationCoApplicants = (
+  applicationId: string,
+  params: Record<string, any> = {}
+) => {
+  const url = constructUrl(
+    `/rental-applications/${applicationId}/co-applicants`,
+    {
+      pageSize: 100,
+      ...params,
+    }
+  );
+  const { data, error, isLoading } =
+    useSWR<APIFetchResponse<APIListResponse<RentalApplicationCoApplicants>>>(
+      url
+    );
+  return {
+    coApplicants: data?.data?.results ?? [],
+    error,
+    isLoading,
   };
 };
 
@@ -49,12 +107,21 @@ const deleteApplication = async (
   });
   return res.data;
 };
-
+const approvePendingApplication = async (applicationId: string) => {
+  const res = await apiFetch(
+    `/rental-applications/${applicationId}/status/approve`,
+    {
+      method: "POST",
+    }
+  );
+  return res.data;
+};
 export const useRentalApplicationApi = () => {
   return {
     addApplication,
     updateApplication,
     deleteApplication,
-    mutateAppointments: () => mutate("/rental-applications"),
+    mutateApplications: () => mutate("/rental-applications"),
+    approvePendingApplication,
   };
 };

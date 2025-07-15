@@ -33,7 +33,7 @@ const ListingApplicationForm: FC<Props> = ({
   onSuccess,
   listingId,
 }) => {
-  const { addApplication, updateApplication, mutateAppointments } =
+  const { addApplication, updateApplication, mutateApplications } =
     useRentalApplicationApi();
   const form = useForm<RentalApplicationFormData>({
     defaultValues: {
@@ -97,7 +97,7 @@ const ListingApplicationForm: FC<Props> = ({
         : await addApplication(data);
       onSuccess?.(res);
       onCloseWorkspace?.();
-      mutateAppointments();
+      mutateApplications();
       showNotification({
         title: "Success",
         message: `Application ${

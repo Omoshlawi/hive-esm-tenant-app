@@ -230,6 +230,34 @@ export interface RentalApplication {
   voided: boolean;
 }
 
+export interface RentalApplicationReference {
+  id: string;
+  applicationId: string;
+  referenceType: string;
+  name: string;
+  relationship: string;
+  phoneNumber: string;
+  email: string;
+  company?: string;
+  position?: string;
+  contacted: boolean;
+  contactedDate?: string;
+  response?: string;
+  recommendation?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface RentalApplicationCoApplicants {
+  id: string;
+  applicationId: string;
+  personId: string;
+  relationshipType: string;
+  createdAt: string;
+  updatedAt: string;
+  person?: Person;
+}
+
 export interface Tenant {
   id: string;
   personId: string;

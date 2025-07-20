@@ -1,7 +1,8 @@
 import { EmptyState } from "@hive/esm-core-components";
 import { Loader, Select, SelectProps } from "@mantine/core";
+import { closeModal, openModal } from "@mantine/modals";
 import { IconSearch } from "@tabler/icons-react";
-import React, { FC } from "react";
+import React from "react";
 import {
   Control,
   Controller,
@@ -9,7 +10,6 @@ import {
   Path,
 } from "react-hook-form";
 import { useSearchTenants } from "../../hooks";
-import { closeModal, openModal } from "@mantine/modals";
 import TenantForm from "../TenantForm";
 type Props<T> = SelectProps & {
   control: Control<T>;
@@ -29,6 +29,7 @@ const TenantInput = <T,>({ control, name, ...props }: Props<T>) => {
       size: "xl",
     });
   };
+
   return (
     <Controller
       control={control}

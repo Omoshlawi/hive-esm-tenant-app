@@ -1,20 +1,19 @@
+import { handleApiErrors } from "@hive/esm-core-api";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Paper, Tabs } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
+import { showNotification } from "@mantine/notifications";
 import React, { FC, useCallback, useState } from "react";
-import { Tenant, TenantFormData } from "../types";
-import { useTenantApi } from "../hooks";
-import { useSearchPeople } from "../hooks/useUsers";
 import {
   FieldPath,
   FormProvider,
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+import { useTenantApi } from "../hooks";
+import { Tenant, TenantFormData } from "../types";
 import { TenantValidator } from "../utils/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMediaQuery } from "@mantine/hooks";
-import { showNotification } from "@mantine/notifications";
-import { handleApiErrors } from "@hive/esm-core-api";
 import { BasicStep, EmergencyContactStep } from "./tenant";
-import { Paper, Tabs } from "@mantine/core";
 type Props = {
   tenant?: Tenant;
   onSuccess?: (tenant: Tenant) => void;
@@ -25,7 +24,6 @@ type FormSteps = "basic" | "emmergency";
 
 const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
   const { addTenant, updateTenant, mutateTenants } = useTenantApi();
-  const personSearch = useSearchPeople();
 
   const form = useForm<TenantFormData>({
     defaultValues: {
@@ -37,7 +35,7 @@ const TenantForm: FC<Props> = ({ onCloseWorkspace, onSuccess, tenant }) => {
       //   price: listing?.price ? Number(listing.price) : undefined,
       //   type: listing?.type,
     },
-    resolver: zodResolver(TenantValidator),
+    resolver: zodResolver(TenantValidator as any),
   });
 
   const navigateToErrorStep = useCallback(() => {

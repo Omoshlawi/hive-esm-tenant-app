@@ -1,18 +1,9 @@
-import React, { FC } from "react";
-import { RentalAgreementFormdata } from "../../types";
-import { Controller, useFormContext } from "react-hook-form";
 import { TablerIcon } from "@hive/esm-core-components";
-import {
-  Stack,
-  Title,
-  Fieldset,
-  TextInput,
-  Button,
-  Group,
-  Select,
-} from "@mantine/core";
-import PersonInput from "../common/PersonInput";
+import { Button, Fieldset, Group, Select, Stack, Title } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
+import React, { FC } from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import { RentalAgreementFormdata } from "../../types";
 import { INPUT_ORDER } from "../../utils/constants";
 import TenantInput from "../common/TenantInput";
 type Props = {
@@ -30,7 +21,7 @@ const ParticipantsStep: FC<Props> = ({ onNext, onPrev }) => {
           Particpants
         </Title>
         {participants.map((_, index) => (
-          <Fieldset legend="Co applicant" py={"xs"} key={index}>
+          <Fieldset legend={"Participant"} py={"xs"} key={index}>
             <Stack flex={1} gap={"xs"}>
               {/* <ParticipantPersonInput index={index}/> */}
               <Controller
@@ -108,7 +99,7 @@ const ParticipantsStep: FC<Props> = ({ onNext, onPrev }) => {
           variant="outline"
           leftSection={<TablerIcon name="plus" />}
           onClick={() => {
-            form.setValue(`participants.${participants.length}`, {});
+            form.setValue(`participants.${participants.length}`, {} as any);
           }}
         >
           Add Participant

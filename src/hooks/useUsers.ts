@@ -7,7 +7,7 @@ import {
   User,
 } from "@hive/esm-core-api";
 import { useDebouncedValue } from "@mantine/hooks";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import useSWR from "swr";
 import { PersonFormData } from "../types";
 
@@ -47,10 +47,13 @@ export const useContactPerson = (userId: string) => {
 export const useSearchPeople = () => {
   const [search, setSearch] = useState<string>();
   const [debounced] = useDebouncedValue(search, 500);
-  const url = constructUrl("/person", {
-    search: debounced,
-    v: "custom:include(user)",
-  });
+  const url = useMemo(() => {
+    if (!debounced) return null;
+    return constructUrl("/person", {
+      search: debounced,
+      v: "custom:include(user)",
+    });
+  }, [debounced]);
   const { data, error, isLoading } = useSWR<
     APIFetchResponse<{ results: Array<Person> }>
   >(debounced ? url : undefined);

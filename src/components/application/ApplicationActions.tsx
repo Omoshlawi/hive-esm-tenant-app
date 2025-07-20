@@ -2,7 +2,7 @@ import { Group, Button, Alert, Text } from "@mantine/core";
 import React, { FC } from "react";
 import { useRentalApplication, useRentalApplicationApi } from "../../hooks";
 import { handleApiErrors } from "@hive/esm-core-api";
-import { openConfirmModal, openModal } from "@mantine/modals";
+import { closeModal, openConfirmModal, openModal } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";
 import { PropsWithLaunchWorkspace } from "../../types";
 import AgreementForm from "../../forms/AgreementForm";

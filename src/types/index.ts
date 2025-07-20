@@ -199,6 +199,44 @@ export interface ListingFilterParams {
 
 export interface RentalAgreement {
   id: string;
+  organizationId: string;
+  propertyId: string;
+  applicationId: string;
+  agreementNumber: string;
+  agreementType:
+    | "RENTAL"
+    | "LEASE"
+    | "RENT_TO_OWN"
+    | "SHORT_TERM"
+    | "CORPORATE"
+    | "SUBLEASE"
+    | "COMMERCIAL"
+    | "STUDENT"
+    | "SENIOR";
+  status:
+    | "DRAFT"
+    | "PENDING"
+    | "ACTIVE"
+    | "EXPIRED"
+    | "TERMINATED"
+    | "RENEWED"
+    | "CANCELLED"
+    | "SUSPENDED";
+  startDate: string;
+  endDate?: string;
+  baseRentAmount: string;
+  typeSpecificData?: Record<string, any>;
+  noticePeriodDays: number;
+  autoRenewal: boolean;
+  petsAllowed: boolean;
+  smokingAllowed: boolean;
+  sublettingAllowed: boolean;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy?: string;
+  metadata?: any;
+  voided: boolean;
 }
 
 export interface RentalApplication {
@@ -270,6 +308,7 @@ export interface Tenant {
   personId: string;
   person: Pick<
     Person,
+    | "id"
     | "avatarUrl"
     | "firstName"
     | "lastName"

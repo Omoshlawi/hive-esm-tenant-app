@@ -1,5 +1,6 @@
 import {
   DashboardPageHeader,
+  DataTableColumnHeader,
   StateFullDataTable,
   TablerIcon,
 } from "@hive/esm-core-components";
@@ -59,4 +60,70 @@ const OrganizationRentalAgreementsPage = () => {
 };
 
 export default OrganizationRentalAgreementsPage;
-const columns: ColumnDef<RentalAgreement>[] = [];
+const columns: ColumnDef<RentalAgreement>[] = [
+  { accessorKey: "agreementNumber", header: "Agrement number" },
+  { accessorKey: "agreementType", header: "Type" },
+  { accessorKey: "baseRentAmount", header: "Rent amount" },
+  {
+    accessorKey: "autoRenewal",
+    header: "Auto renewal",
+    cell({ getValue }) {
+      const value = getValue<boolean>();
+      return (
+        <TablerIcon
+          name={value ? "circleCheck" : "circleX"}
+          color={value ? "green" : "red"}
+        />
+      );
+    },
+  },
+  {
+    accessorKey: "petsAllowed",
+    header: "Pets allowed",
+    cell({ getValue }) {
+      const value = getValue<boolean>();
+      return (
+        <TablerIcon
+          name={value ? "circleCheck" : "circleX"}
+          color={value ? "green" : "red"}
+        />
+      );
+    },
+  },
+  {
+    accessorKey: "smokingAllowed",
+    header: "Smoking allowed",
+    cell({ getValue }) {
+      const value = getValue<boolean>();
+      return (
+        <TablerIcon
+          name={value ? "circleCheck" : "circleX"}
+          color={value ? "green" : "red"}
+        />
+      );
+    },
+  },
+  {
+    accessorKey: "sublettingAllowed",
+    header: "Subletting allowed",
+    cell({ getValue }) {
+      const value = getValue<boolean>();
+      return (
+        <TablerIcon
+          name={value ? "circleCheck" : "circleX"}
+          color={value ? "green" : "red"}
+        />
+      );
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header({ column }) {
+      return <DataTableColumnHeader column={column} title="Date Created" />;
+    },
+    cell({ getValue }) {
+      const created = getValue<string>();
+      return new Date(created).toDateString();
+    },
+  },
+];

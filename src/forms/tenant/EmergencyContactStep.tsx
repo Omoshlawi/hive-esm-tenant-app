@@ -58,7 +58,7 @@ const EmergencyContactStep: FC<Props> = ({ onPrev }) => {
             <TextInput
               {...field}
               label="Contact Relationship"
-              placeholder="e.g 25412345678"
+              placeholder="e.g Friend, Family"
               error={error?.message}
             />
           )}

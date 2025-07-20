@@ -1,16 +1,13 @@
 import {
   DashboardPageHeader,
-  DataTableColumnHeader,
-  StateFullDataTable,
-  TablerIcon,
+  TablerIcon
 } from "@hive/esm-core-components";
-import { Stack, Box, ActionIcon, Group, Text } from "@mantine/core";
+import { ActionIcon, Box, Group, Stack, Text } from "@mantine/core";
+import { openConfirmModal } from "@mantine/modals";
 import React, { FC } from "react";
+import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
 import { useRentalApplications } from "../hooks";
 import { PropsWithLaunchWorkspace, RentalApplication } from "../types";
-import { openConfirmModal } from "@mantine/modals";
-import { ColumnDef } from "@tanstack/react-table";
-import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
 
 const OrganizationApplicationsPage: FC<PropsWithLaunchWorkspace> = ({
   launchWorkspace,

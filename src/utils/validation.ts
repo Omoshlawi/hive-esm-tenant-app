@@ -35,7 +35,7 @@ export const TenantValidator = z.object({
   emergencyContactName: z.string().optional(),
   emergencyContactPhone: z.string().optional(),
   emergencyContactEmail: z.string().email().optional(),
-  emergencyContactRelation: z.string().email().optional(),
+  emergencyContactRelation: z.string().optional(),
   preferredContactMethod: z.enum(["EMAIL", "PHONE", "SMS", "MAIL"]).optional(),
   languagePreference: z.string().optional(),
   specialRequirements: z.string().optional(),

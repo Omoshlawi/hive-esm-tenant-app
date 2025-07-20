@@ -23,7 +23,10 @@ const TenantInput = <T,>({ control, name, ...props }: Props<T>) => {
       children: (
         <TenantForm
           onCloseWorkspace={() => closeModal(id)}
-          onSuccess={(tenant) => {}}
+          onSuccess={(tenant) => {
+            tenantsearchAsync.searchTenants(tenant.person?.email);
+            onChange(tenant.id);
+          }}
         />
       ),
       size: "xl",

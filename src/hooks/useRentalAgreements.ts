@@ -1,13 +1,16 @@
 import useSWR from "swr";
 import { RentalAgreement, RentalAgreementFormdata } from "../types";
-import { apiFetch } from "@hive/esm-core-api";
+import {
+  apiFetch,
+  APIFetchResponse,
+  APIListResponse,
+} from "@hive/esm-core-api";
 
 export const useRentalAgreements = () => {
-  const { data, isLoading, error } = useSWR<{
-    data: { results: Array<RentalAgreement> };
-  }>("/rental-agreements", (url: string) =>
-    Promise.resolve({ data: { results: [] } })
-  );
+  const { data, isLoading, error } =
+    useSWR<APIFetchResponse<APIListResponse<RentalAgreement>>>(
+      "/rental-agreements"
+    );
   return {
     agreements: data?.data?.results ?? [],
     isLoading,

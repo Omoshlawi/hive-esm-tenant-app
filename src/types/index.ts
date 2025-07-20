@@ -1,8 +1,14 @@
 import { z } from "zod";
 import {
+  AdditionalChargeValidator,
+  AgreementParticipantValudator,
   CoApplicantValidator,
+  LeaseAgreementDetailsValidator,
   Personvalidator,
+  RentalAgreementDetailsValidator,
+  RentalAgreementValidator,
   RentalApplicationValidator,
+  ShortTermAgreementDetailsValidator,
   TenantValidator,
   TenenantReferenceValidator,
 } from "../utils/validation";
@@ -305,5 +311,21 @@ export type TenenantReferenceFormData = z.infer<
   typeof TenenantReferenceValidator
 >;
 export type TenantFormData = z.infer<typeof TenantValidator>;
+export type RentalAgreementFormdata = z.infer<typeof RentalAgreementValidator>;
+export type ShortTermAgreementDetailsFormdata = z.infer<
+  typeof ShortTermAgreementDetailsValidator
+>;
+export type RentalAgreementDetailsFormdata = z.infer<
+  typeof RentalAgreementDetailsValidator
+>;
+export type LeaseAgreementDetailsFormdata = z.infer<
+  typeof LeaseAgreementDetailsValidator
+>;
+export type RentalAgreementParticipantFormdata = z.infer<
+  typeof AgreementParticipantValudator
+>;
+export type RentalAgreementAdditionalChargeFormdata = z.infer<
+  typeof AdditionalChargeValidator
+>;
 export type PropsWithLaunchWorkspace = Pick<PiletApi, "launchWorkspace">;
 export type PropsWithExtension = Pick<PiletApi, "Extension">;

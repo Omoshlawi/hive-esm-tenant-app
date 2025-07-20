@@ -45,7 +45,10 @@ const ApplicationActions: FC<Props> = ({ applicationId, launchWorkspace }) => {
 
   const handleCreateRentalAgreement = () => {
     const dispose = launchWorkspace(
-      <AgreementForm onCloseWorkspace={() => dispose()} />,
+      <AgreementForm
+        onCloseWorkspace={() => dispose()}
+        applicationId={applicationId}
+      />,
       {
         title: "Create Rental Agreement",
         width: "extra-wide",

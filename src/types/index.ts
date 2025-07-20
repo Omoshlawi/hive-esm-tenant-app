@@ -7,6 +7,7 @@ import {
   TenenantReferenceValidator,
 } from "../utils/validation";
 import { Person } from "@hive/esm-core-api";
+import { PiletApi } from "@hive/esm-shell-app";
 
 export interface Listing {
   id: string;
@@ -304,3 +305,5 @@ export type TenenantReferenceFormData = z.infer<
   typeof TenenantReferenceValidator
 >;
 export type TenantFormData = z.infer<typeof TenantValidator>;
+export type PropsWithLaunchWorkspace = Pick<PiletApi, "launchWorkspace">;
+export type PropsWithExtension = Pick<PiletApi, "Extension">;

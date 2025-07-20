@@ -9,15 +9,22 @@ import DetailsTab from "./DetailsTab";
 import ReferenceTab from "./ReferenceTab";
 import CoApplicantsTab from "./CoApplicantsTab";
 import ApplicationActions from "./ApplicationActions";
+import { PropsWithLaunchWorkspace } from "../../types";
 
-type Props = {
+type Props = PropsWithLaunchWorkspace & {
   applicationId: string;
 };
 
-const RentalApplicationDetail: FC<Props> = ({ applicationId }) => {
+const RentalApplicationDetail: FC<Props> = ({
+  applicationId,
+  launchWorkspace,
+}) => {
   return (
     <Paper p={"sm"} component={Stack}>
-      <ApplicationActions applicationId={applicationId} />
+      <ApplicationActions
+        applicationId={applicationId}
+        launchWorkspace={launchWorkspace}
+      />
       <Tabs defaultValue="details" orientation="vertical">
         <Tabs.List>
           <Tabs.Tab value="details" leftSection={<IconPhoto size={12} />}>

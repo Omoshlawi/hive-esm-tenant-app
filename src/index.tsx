@@ -20,7 +20,7 @@ export function setup(app: PiletApi) {
   );
   app.registerPage(
     "/dashboard/applications",
-    () => <OrganizationApplications />,
+    () => <OrganizationApplications launchWorkspace={app.launchWorkspace} />,
     {
       layout: "dashboard",
     }

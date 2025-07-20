@@ -4,12 +4,14 @@ import { useRentalApplication, useRentalApplicationApi } from "../../hooks";
 import { handleApiErrors } from "@hive/esm-core-api";
 import { openConfirmModal, openModal } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";
+import { PropsWithLaunchWorkspace } from "../../types";
+import AgreementForm from "../../forms/AgreementForm";
 
-type Props = {
+type Props = PropsWithLaunchWorkspace & {
   applicationId: string;
 };
 
-const ApplicationActions: FC<Props> = ({ applicationId }) => {
+const ApplicationActions: FC<Props> = ({ applicationId, launchWorkspace }) => {
   const { application, isLoading, error } = useRentalApplication(applicationId);
   const { approvePendingApplication, mutateApplications } =
     useRentalApplicationApi();
@@ -40,6 +42,18 @@ const ApplicationActions: FC<Props> = ({ applicationId }) => {
       },
     });
   };
+
+  const handleCreateRentalAgreement = () => {
+    const dispose = launchWorkspace(
+      <AgreementForm onCloseWorkspace={() => dispose()} />,
+      {
+        title: "Create Rental Agreement",
+        width: "extra-wide",
+        expandable: true,
+      }
+    );
+  };
+
   return (
     <Group justify="flex-end">
       {application.status === "DRAFT" && (
@@ -58,7 +72,12 @@ const ApplicationActions: FC<Props> = ({ applicationId }) => {
         </Button>
       )}
       {application.status === "APPROVED" && (
-        <Button size="xs" variant="outline" color="teal">
+        <Button
+          size="xs"
+          variant="outline"
+          color="teal"
+          onClick={handleCreateRentalAgreement}
+        >
           Create Rental Agreement
         </Button>
       )}

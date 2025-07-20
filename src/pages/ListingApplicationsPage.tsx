@@ -50,6 +50,7 @@ const ListingApplicationsPage: FC<Props> = ({ launchWorkspace }) => {
   return (
     <RenatlApplicationTable
       onAddOrupdate={handleAddOrupdate}
+      launchWorkspace={launchWorkspace}
       actions={[
         {
           id: "actions",

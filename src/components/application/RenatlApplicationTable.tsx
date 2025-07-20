@@ -7,11 +7,11 @@ import {
 import { Button, Badge, ActionIcon } from "@mantine/core";
 import { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
-import { RentalApplication } from "../../types";
+import { PropsWithLaunchWorkspace, RentalApplication } from "../../types";
 import { getApplicationStatusColor } from "../../utils/helpers";
 import { useRentalApplications } from "../../hooks";
 import RentalApplicationDetail from "./RentalApplicationDetail";
-type Props = {
+type Props = PropsWithLaunchWorkspace & {
   applicationsAsync: ReturnType<typeof useRentalApplications>;
   actions?: Array<ColumnDef<RentalApplication>>;
   onAddOrupdate?: (application?: RentalApplication) => void;
@@ -21,7 +21,11 @@ const RenatlApplicationTable: FC<Props> = ({
   applicationsAsync,
   actions,
   onAddOrupdate: handleAddOrupdate,
+  launchWorkspace,
 }) => {
+  const handleCreateRentalAgreement = () => {
+    // Logic to create rental agreement
+  };
   return (
     <StateFullDataTable
       onAdd={() => handleAddOrupdate?.()}
@@ -30,7 +34,10 @@ const RenatlApplicationTable: FC<Props> = ({
       data={applicationsAsync.applications}
       withColumnViewOptions
       renderExpandedRow={({ original: { id } }) => (
-        <RentalApplicationDetail applicationId={id} />
+        <RentalApplicationDetail
+          applicationId={id}
+          launchWorkspace={launchWorkspace}
+        />
       )}
     />
   );

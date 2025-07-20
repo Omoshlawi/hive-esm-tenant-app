@@ -5,14 +5,16 @@ import {
   TablerIcon,
 } from "@hive/esm-core-components";
 import { Stack, Box, ActionIcon, Group, Text } from "@mantine/core";
-import React from "react";
+import React, { FC } from "react";
 import { useRentalApplications } from "../hooks";
-import { RentalApplication } from "../types";
+import { PropsWithLaunchWorkspace, RentalApplication } from "../types";
 import { openConfirmModal } from "@mantine/modals";
 import { ColumnDef } from "@tanstack/react-table";
 import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
 
-const OrganizationApplicationsPage = () => {
+const OrganizationApplicationsPage: FC<PropsWithLaunchWorkspace> = ({
+  launchWorkspace,
+}) => {
   const applicationsAsync = useRentalApplications();
   const handleDelete = (application: RentalApplication) => {
     openConfirmModal({
@@ -41,6 +43,7 @@ const OrganizationApplicationsPage = () => {
         />
       </Box>
       <RenatlApplicationTable
+        launchWorkspace={launchWorkspace}
         actions={[
           {
             id: "actions",

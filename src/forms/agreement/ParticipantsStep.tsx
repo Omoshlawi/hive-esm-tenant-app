@@ -14,6 +14,7 @@ import {
 import PersonInput from "../common/PersonInput";
 import { DateInput } from "@mantine/dates";
 import { INPUT_ORDER } from "../../utils/constants";
+import TenantInput from "../common/TenantInput";
 type Props = {
   onNext?: () => void;
   onPrev?: () => void;
@@ -85,7 +86,7 @@ const ParticipantsStep: FC<Props> = ({ onNext, onPrev }) => {
                   />
                 )}
               />
-              <PersonInput
+              <TenantInput
                 control={form.control}
                 name={`participants.${index}.tenantId`}
               />

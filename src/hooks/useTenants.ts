@@ -8,6 +8,8 @@ import {
 } from "@hive/esm-core-api";
 import useSWR from "swr";
 import { Tenant, TenantFormData } from "../types";
+import { useState } from "react";
+import { useDebouncedValue } from "@mantine/hooks";
 
 export const useTenants = () => {
   const session = useSession();
@@ -22,6 +24,25 @@ export const useTenants = () => {
     isLoading,
     error,
     totalCount: data?.data?.totalCount,
+  };
+};
+
+export const useSearchTenants = () => {
+  const [search, setSearch] = useState<string>();
+  const [debounced] = useDebouncedValue(search, 500);
+  const url = constructUrl("/tenants", {
+    search: debounced,
+    // v: "custom:include(user)",
+  });
+  const { data, error, isLoading } = useSWR<
+    APIFetchResponse<{ results: Array<Tenant> }>
+  >(debounced ? url : undefined);
+  return {
+    tenants: data?.data?.results ?? [],
+    isLoading,
+    error,
+    searchTenants: setSearch,
+    tenantsSearchValue: search,
   };
 };
 

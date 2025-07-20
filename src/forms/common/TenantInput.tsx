@@ -1,36 +1,32 @@
 import { EmptyState } from "@hive/esm-core-components";
 import { Loader, Select, SelectProps } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import React from "react";
+import React, { FC } from "react";
 import {
   Control,
   Controller,
   ControllerRenderProps,
   Path,
 } from "react-hook-form";
-import { useSearchPeople } from "../../hooks";
+import { useSearchTenants } from "../../hooks";
 import { closeModal, openModal } from "@mantine/modals";
-import PersonDetailsForm from "./PersonDetailsForm";
-
+import TenantForm from "../TenantForm";
 type Props<T> = SelectProps & {
   control: Control<T>;
   name: Path<T>;
 };
-const PersonInput = <T,>({ control, name, ...props }: Props<T>) => {
-  const personsearchAsync = useSearchPeople();
-
-  const handleAddPerson = ({ onChange }: ControllerRenderProps<T, Path<T>>) => {
+const TenantInput = <T,>({ control, name, ...props }: Props<T>) => {
+  const tenantsearchAsync = useSearchTenants();
+  const handleAddTenant = ({ onChange }: ControllerRenderProps<T, Path<T>>) => {
     const id = openModal({
-      title: "Add Person",
+      title: "Add Tenant",
       children: (
-        <PersonDetailsForm
-          onClose={() => closeModal(id)}
-          onSuccess={(person) => {
-            personsearchAsync.searchPeople(person.email);
-            onChange(person.id);
-          }}
+        <TenantForm
+          onCloseWorkspace={() => closeModal(id)}
+          onSuccess={(tenant) => {}}
         />
       ),
+      size: "xl",
     });
   };
   return (
@@ -39,10 +35,10 @@ const PersonInput = <T,>({ control, name, ...props }: Props<T>) => {
       name={name}
       render={({ field, fieldState: { error } }) => (
         <Select
-          label="Person"
+          label="Tenant"
           placeholder="Search ..."
           leftSection={<IconSearch size={16} />}
-          rightSection={personsearchAsync.isLoading && <Loader size="xs" />}
+          rightSection={tenantsearchAsync.isLoading && <Loader size="xs" />}
           {...props}
           {...field}
           value={field.value as string}
@@ -51,16 +47,16 @@ const PersonInput = <T,>({ control, name, ...props }: Props<T>) => {
               py={0}
               title="Nothing found"
               message="Search ..."
-              onAdd={() => handleAddPerson(field)}
+              onAdd={() => handleAddTenant(field)}
             />
           }
           clearable
           searchable
-          searchValue={personsearchAsync.peopleSearchValue}
-          onSearchChange={personsearchAsync.searchPeople}
-          data={personsearchAsync.people.map((person) => ({
-            label: person.email,
-            value: person.id,
+          searchValue={tenantsearchAsync.tenantsSearchValue}
+          onSearchChange={tenantsearchAsync.searchTenants}
+          data={tenantsearchAsync.tenants.map((tenant) => ({
+            label: tenant.person.email,
+            value: tenant.id,
           }))}
           error={error?.message}
         />
@@ -69,4 +65,4 @@ const PersonInput = <T,>({ control, name, ...props }: Props<T>) => {
   );
 };
 
-export default PersonInput;
+export default TenantInput;

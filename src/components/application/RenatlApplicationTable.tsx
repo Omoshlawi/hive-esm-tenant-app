@@ -9,10 +9,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import { PropsWithLaunchWorkspace, TenancyApplication } from "../../types";
 import { getApplicationStatusColor } from "../../utils/helpers";
-import { useRentalApplications } from "../../hooks";
+import { useTenancyApplications } from "../../hooks";
 import RentalApplicationDetail from "./RentalApplicationDetail";
 type Props = PropsWithLaunchWorkspace & {
-  applicationsAsync: ReturnType<typeof useRentalApplications>;
+  applicationsAsync: ReturnType<typeof useTenancyApplications>;
   actions?: Array<ColumnDef<TenancyApplication>>;
   onAddOrupdate?: (application?: TenancyApplication) => void;
 };

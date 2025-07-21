@@ -1,10 +1,11 @@
 import { Alert, Loader, Table } from "@mantine/core";
 import React, { FC } from "react";
-import { useRentalApplication } from "../../hooks";
+import { useTenancyApplication } from "../../hooks";
 import { handleApiErrors } from "@hive/esm-core-api";
 type Props = { applicationId: string };
 const DetailsTab: FC<Props> = ({ applicationId }) => {
-  const { application, error, isLoading } = useRentalApplication(applicationId);
+  const { application, error, isLoading } =
+    useTenancyApplication(applicationId);
   if (isLoading) return <Loader />;
   if (error)
     return (

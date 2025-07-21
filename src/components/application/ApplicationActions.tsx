@@ -1,6 +1,6 @@
 import { Group, Button, Alert, Text } from "@mantine/core";
 import React, { FC } from "react";
-import { useRentalApplication, useRentalApplicationApi } from "../../hooks";
+import { useTenancyApplication, useTenancyApplicationApi } from "../../hooks";
 import { handleApiErrors } from "@hive/esm-core-api";
 import { closeModal, openConfirmModal, openModal } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";
@@ -12,9 +12,10 @@ type Props = PropsWithLaunchWorkspace & {
 };
 
 const ApplicationActions: FC<Props> = ({ applicationId, launchWorkspace }) => {
-  const { application, isLoading, error } = useRentalApplication(applicationId);
+  const { application, isLoading, error } =
+    useTenancyApplication(applicationId);
   const { approvePendingApplication, mutateApplications } =
-    useRentalApplicationApi();
+    useTenancyApplicationApi();
   if (isLoading) return null;
   if (error)
     return (

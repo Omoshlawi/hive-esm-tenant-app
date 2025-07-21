@@ -2,14 +2,14 @@ import { handleApiErrors } from "@hive/esm-core-api";
 import { Loader, Alert, Table } from "@mantine/core";
 import React, { FC } from "react";
 import {
-  useRentalApplication,
-  useRentalApplicationCoApplicants,
+  useTenancyApplication,
+  useTenancyApplicationCoApplicants,
 } from "../../hooks";
 type Props = { applicationId: string };
 
 const CoApplicantsTab: FC<Props> = ({ applicationId }) => {
   const { coApplicants, error, isLoading } =
-    useRentalApplicationCoApplicants(applicationId);
+    useTenancyApplicationCoApplicants(applicationId);
   if (isLoading) return <Loader />;
   if (error)
     return (

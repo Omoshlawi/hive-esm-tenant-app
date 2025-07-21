@@ -13,8 +13,8 @@ import {
   mutate,
 } from "@hive/esm-core-api";
 
-export const useRentalApplications = (params: Record<string, any> = {}) => {
-  const url = constructUrl("/rental-applications", { ...params });
+export const useTenancyApplications = (params: Record<string, any> = {}) => {
+  const url = constructUrl("/tenancy-applications", { ...params });
   const { data, error, isLoading } =
     useSWR<APIFetchResponse<APIListResponse<TenancyApplication>>>(url);
   return {
@@ -25,11 +25,11 @@ export const useRentalApplications = (params: Record<string, any> = {}) => {
   };
 };
 
-export const useRentalApplication = (
+export const useTenancyApplication = (
   id: string,
   params: Record<string, any> = {}
 ) => {
-  const url = constructUrl(`/rental-applications/${id}`, {
+  const url = constructUrl(`/tenancy-applications/${id}`, {
     ...params,
   });
   const { data, error, isLoading } =
@@ -40,14 +40,17 @@ export const useRentalApplication = (
     isLoading,
   };
 };
-export const useRentalApplicationReferences = (
+export const useTenancyApplicationReferences = (
   applicationId: string,
   params: Record<string, any> = {}
 ) => {
-  const url = constructUrl(`/rental-applications/${applicationId}/references`, {
-    pageSize: 100,
-    ...params,
-  });
+  const url = constructUrl(
+    `/tenancy-applications/${applicationId}/references`,
+    {
+      pageSize: 100,
+      ...params,
+    }
+  );
   const { data, error, isLoading } =
     useSWR<APIFetchResponse<APIListResponse<TenancyApplicationReference>>>(url);
   return {
@@ -56,12 +59,12 @@ export const useRentalApplicationReferences = (
     isLoading,
   };
 };
-export const useRentalApplicationCoApplicants = (
+export const useTenancyApplicationCoApplicants = (
   applicationId: string,
   params: Record<string, any> = {}
 ) => {
   const url = constructUrl(
-    `/rental-applications/${applicationId}/co-applicants`,
+    `/tenancy-applications/${applicationId}/co-applicants`,
     {
       pageSize: 100,
       ...params,
@@ -79,7 +82,7 @@ export const useRentalApplicationCoApplicants = (
 };
 
 const addApplication = async (data: TenancyApplicationFormData) => {
-  const res = await apiFetch<TenancyApplication>("/rental-applications", {
+  const res = await apiFetch<TenancyApplication>("/tenancy-applications", {
     method: "POST",
     data,
   });
@@ -91,10 +94,13 @@ const updateApplication = async (
   data: TenancyApplicationFormData,
   method: "PUT" | "PATCH" = "PATCH"
 ) => {
-  const res = await apiFetch<TenancyApplication>(`/rental-applications/${id}`, {
-    method: method,
-    data,
-  });
+  const res = await apiFetch<TenancyApplication>(
+    `/tenancy-applications/${id}`,
+    {
+      method: method,
+      data,
+    }
+  );
   return res.data;
 };
 
@@ -102,26 +108,29 @@ const deleteApplication = async (
   id: string,
   method: "DELETE" | "PURGE" = "DELETE"
 ) => {
-  const res = await apiFetch<TenancyApplication>(`/rental-applications/${id}`, {
-    method: method,
-  });
+  const res = await apiFetch<TenancyApplication>(
+    `/tenancy-applications/${id}`,
+    {
+      method: method,
+    }
+  );
   return res.data;
 };
 const approvePendingApplication = async (applicationId: string) => {
   const res = await apiFetch(
-    `/rental-applications/${applicationId}/status/approve`,
+    `/tenancy-applications/${applicationId}/status/approve`,
     {
       method: "POST",
     }
   );
   return res.data;
 };
-export const useRentalApplicationApi = () => {
+export const useTenancyApplicationApi = () => {
   return {
     addApplication,
     updateApplication,
     deleteApplication,
-    mutateApplications: () => mutate("/rental-applications"),
+    mutateApplications: () => mutate("/tenancy-applications"),
     approvePendingApplication,
   };
 };

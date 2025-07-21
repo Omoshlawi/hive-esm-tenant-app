@@ -3,13 +3,13 @@ import { ActionIcon, Box, Group, Stack, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import React, { FC } from "react";
 import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
-import { useRentalApplications } from "../hooks";
+import { useTenancyApplications } from "../hooks";
 import { PropsWithLaunchWorkspace, TenancyApplication } from "../types";
 
 const OrganizationApplicationsPage: FC<PropsWithLaunchWorkspace> = ({
   launchWorkspace,
 }) => {
-  const applicationsAsync = useRentalApplications();
+  const applicationsAsync = useTenancyApplications();
   const handleDelete = (application: TenancyApplication) => {
     openConfirmModal({
       title: "Delete listing",

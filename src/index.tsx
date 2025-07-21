@@ -20,7 +20,7 @@ export function setup(app: PiletApi) {
     }
   );
   app.registerPage(
-    "/dashboard/applications",
+    "/dashboard/tenancy-applications",
     () => <OrganizationApplications launchWorkspace={app.launchWorkspace} />,
     {
       layout: "dashboard",
@@ -68,8 +68,8 @@ export function setup(app: PiletApi) {
   app.registerMenu(
     ({ onClose }: any) => (
       <HeaderLink
-        label="Applications"
-        to="/dashboard/applications"
+        label="Tenancy Applications"
+        to="/dashboard/tenancy-applications"
         icon="homeQuestion"
         onClose={onClose ?? (() => {})}
       />

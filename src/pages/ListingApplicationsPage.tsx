@@ -5,7 +5,7 @@ import { openConfirmModal } from "@mantine/modals";
 import React, { FC } from "react";
 import { useParams } from "react-router";
 import ListingApplicationForm from "../forms/ListingApplicationForm";
-import { useRentalApplications } from "../hooks";
+import { useTenancyApplications } from "../hooks";
 import { TenancyApplication } from "../types";
 import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
 
@@ -13,7 +13,7 @@ type Props = Pick<PiletApi, "launchWorkspace">;
 
 const ListingApplicationsPage: FC<Props> = ({ launchWorkspace }) => {
   const { listingId } = useParams<{ listingId: string }>();
-  const applicationsAsync = useRentalApplications({ listingId });
+  const applicationsAsync = useTenancyApplications({ listingId });
 
   const handleAddOrupdate = (application?: TenancyApplication) => {
     const dispose = launchWorkspace(

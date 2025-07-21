@@ -10,7 +10,7 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { useRentalApplicationApi } from "../hooks";
+import { useTenancyApplicationApi } from "../hooks";
 import { TenancyApplication, TenancyApplicationFormData } from "../types";
 import { TenancyApplicationValidator } from "../utils/validation";
 import {
@@ -34,7 +34,7 @@ const ListingApplicationForm: FC<Props> = ({
   listingId,
 }) => {
   const { addApplication, updateApplication, mutateApplications } =
-    useRentalApplicationApi();
+    useTenancyApplicationApi();
   const form = useForm<TenancyApplicationFormData>({
     defaultValues: {
       //   title: appointment?.title,

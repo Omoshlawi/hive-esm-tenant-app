@@ -33,7 +33,7 @@ export const useTenancyAgreement = (id: string) => {
 };
 
 const addAgreement = async (data: TenancyAgreementFormData) => {
-  const res = await apiFetch<TenancyAgreement>("/rental-agreement", {
+  const res = await apiFetch<TenancyAgreement>("/tenancy-agreements", {
     method: "POST",
     data,
   });
@@ -45,7 +45,7 @@ const updateAgreement = async (
   data: TenancyAgreementFormData,
   method: "PUT" | "PATCH" = "PATCH"
 ) => {
-  const res = await apiFetch<TenancyAgreement>(`/rental-agreement/${id}`, {
+  const res = await apiFetch<TenancyAgreement>(`/tenancy-agreements/${id}`, {
     method: method,
     data,
   });
@@ -56,7 +56,7 @@ const deleteAgreement = async (
   id: string,
   method: "DELETE" | "PURGE" = "DELETE"
 ) => {
-  const res = await apiFetch<TenancyAgreement>(`/rental-agreement/${id}`, {
+  const res = await apiFetch<TenancyAgreement>(`/tenancy-agreements/${id}`, {
     method: method,
   });
   return res.data;

@@ -4,11 +4,13 @@ import {
   StateFullDataTable,
   TablerIcon,
 } from "@hive/esm-core-components";
-import { Stack, Box, ActionIcon, Group } from "@mantine/core";
+import { Stack, Box, ActionIcon, Group, Button } from "@mantine/core";
 import React from "react";
 import { useRentalAgreements } from "../hooks";
 import { ColumnDef } from "@tanstack/react-table";
 import { RentalAgreement } from "../types";
+import { Link } from "react-router-dom";
+import PropertyCell from "../components/PropertyCell";
 
 const OrganizationRentalAgreementsPage = () => {
   const agreementsAsync = useRentalAgreements();
@@ -61,8 +63,51 @@ const OrganizationRentalAgreementsPage = () => {
 
 export default OrganizationRentalAgreementsPage;
 const columns: ColumnDef<RentalAgreement>[] = [
-  { accessorKey: "agreementNumber", header: "Agrement number" },
+  {
+    accessorKey: "agreementNumber",
+    header: ({ column }) => (
+      <DataTableColumnHeader title="Agrement number" column={column} />
+    ),
+    cell({ row }) {
+      const agreement = row.original;
+      const url = `/dashboard/properties/${agreement.propertyId}/agreements/${agreement.id}`;
+      return (
+        <Button component={Link} to={url} variant="transparent" p={0} m={0}>
+          {agreement.agreementNumber}
+        </Button>
+      );
+    },
+  },
   { accessorKey: "agreementType", header: "Type" },
+  {
+    accessorKey: "propertyId",
+    header: "Property",
+    cell({ getValue }) {
+      const propertyId = getValue<string>();
+      return <PropertyCell propertyId={propertyId} />;
+    },
+  },
+  { accessorKey: "status", header: "Status" },
+  {
+    accessorKey: "startDate",
+    header({ column }) {
+      return <DataTableColumnHeader column={column} title="Start Date" />;
+    },
+    cell({ getValue }) {
+      const created = getValue<string>();
+      return new Date(created).toDateString();
+    },
+  },
+  {
+    accessorKey: "endDate",
+    header({ column }) {
+      return <DataTableColumnHeader column={column} title="End Date" />;
+    },
+    cell({ getValue }) {
+      const created = getValue<string>();
+      return new Date(created).toDateString();
+    },
+  },
   { accessorKey: "baseRentAmount", header: "Rent amount" },
   {
     accessorKey: "autoRenewal",

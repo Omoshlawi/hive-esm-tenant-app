@@ -4,6 +4,8 @@ import {
   apiFetch,
   APIFetchResponse,
   APIListResponse,
+  constructUrl,
+  mutate,
 } from "@hive/esm-core-api";
 
 export const useRentalAgreements = () => {
@@ -13,6 +15,19 @@ export const useRentalAgreements = () => {
     );
   return {
     agreements: data?.data?.results ?? [],
+    isLoading,
+    error,
+  };
+};
+
+export const useRentalAgreement = (id: string) => {
+  const url = constructUrl(`/rental-agreements/${id}`, {
+    v: "custom:include(additionalCharges,participants:include(tenant),leaseDetails,rentalDetails,shortTermDetails,statusHistory)",
+  });
+  const { data, isLoading, error } =
+    useSWR<APIFetchResponse<RentalAgreement>>(url);
+  return {
+    agreement: data?.data ?? null,
     isLoading,
     error,
   };
@@ -53,6 +68,6 @@ export const useRentalAgreementApi = () => {
     addAgreement,
     updateAgreement,
     deleteAgreement,
-    mutateAgreements: () => useSWR("/rental-agreements"),
+    mutateAgreements: () => mutate("/rental-agreements"),
   };
 };

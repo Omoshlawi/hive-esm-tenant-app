@@ -1,14 +1,15 @@
-import * as React from "react";
+import { HeaderLink } from "@hive/esm-core-components";
 import type { PiletApi } from "@hive/esm-shell-app";
+import * as React from "react";
+import { useListingChartListing, usePropertyChartProperty } from "./hooks";
 import {
+  AgreementDetail,
   ListingApplications,
   OrganizationApplications,
   OrganizationRentalAgreements,
   OrganizationTenants,
-  PropertyTenancyHistory,
+  PropertyAgreements,
 } from "./pages";
-import { HeaderLink } from "@hive/esm-core-components";
-import { useListingChartListing, usePropertyChartProperty } from "./hooks";
 
 export function setup(app: PiletApi) {
   app.registerPage(
@@ -33,17 +34,24 @@ export function setup(app: PiletApi) {
     }
   );
   app.registerPage(
-    "/dashboard/properties/:propertyId/tenancy-history",
-    () => <PropertyTenancyHistory launchWorkspace={app.launchWorkspace} />,
+    "/dashboard/listings/:listingId/applications",
+    () => <ListingApplications launchWorkspace={app.launchWorkspace} />,
+    {
+      layout: "listingChart",
+    }
+  );
+  app.registerPage(
+    "/dashboard/properties/:propertyId/agreements",
+    () => <PropertyAgreements launchWorkspace={app.launchWorkspace} />,
     {
       layout: "propertyChart",
     }
   );
   app.registerPage(
-    "/dashboard/listings/:listingId/applications",
-    () => <ListingApplications launchWorkspace={app.launchWorkspace} />,
+    "/dashboard/properties/:propertyId/agreements/:agreementId",
+    () => <AgreementDetail launchWorkspace={app.launchWorkspace} />,
     {
-      layout: "listingChart",
+      layout: "propertyChart",
     }
   );
   app.registerMenu(
@@ -71,7 +79,7 @@ export function setup(app: PiletApi) {
   app.registerMenu(
     ({ onClose }: any) => (
       <HeaderLink
-        label="Agreements"
+        label="Tenancy Agreements"
         to="/dashboard/rental-agreements"
         icon="contract"
         onClose={onClose ?? (() => {})}
@@ -84,8 +92,8 @@ export function setup(app: PiletApi) {
       const propertyId = usePropertyChartProperty();
       return (
         <HeaderLink
-          label="Tenancy history"
-          to={`/dashboard/properties/${propertyId}/tenancy-history`}
+          label="Tenancy History"
+          to={`/dashboard/properties/${propertyId}/agreements`}
           onClose={onClose ?? (() => {})}
         />
       );

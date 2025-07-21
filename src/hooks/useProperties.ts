@@ -24,3 +24,13 @@ export const useSearchProperties = () => {
     search,
   };
 };
+
+export const useProperty = (propertyId: string) => {
+  const url = constructUrl(`/properties/${propertyId}`);
+  const { data, error, isLoading } = useSWR<APIFetchResponse<Property>>(url);
+  return {
+    property: data?.data,
+    isLoading,
+    error,
+  };
+};

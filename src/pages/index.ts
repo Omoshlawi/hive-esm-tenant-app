@@ -4,6 +4,9 @@ import PropertyTenancyHistoryPage from "./PropertyTenancyHistoryPage";
 import ListingApplicationsPage from "./ListingApplicationsPage";
 import OrganizationApplicationsPage from "./OrganizationApplicationsPage";
 import OrganizationRentalAgreementsPage from "./OrganizationRentalAgreementsPage";
+import React from "react";
+import PropertyAgreementsPage from "./PropertyAgreementsPage";
+import AgreementDetailPage from "./AgreementDetailPage";
 export const OrganizationTenants = withUserAccess(OrganizationTenantsPage, {
   isAuthenticated: (session) => session.isAuthenticated,
   requiresAuth: true,
@@ -27,3 +30,13 @@ export const OrganizationRentalAgreements = withUserAccess(
   OrganizationRentalAgreementsPage,
   { isAuthenticated: (session) => session.isAuthenticated, requiresAuth: true }
 );
+
+export const PropertyAgreements = withUserAccess(PropertyAgreementsPage, {
+  isAuthenticated: (session) => session.isAuthenticated,
+  requiresAuth: true,
+});
+
+export const AgreementDetail = withUserAccess(AgreementDetailPage, {
+  isAuthenticated: (session) => session.isAuthenticated,
+  requiresAuth: true,
+});

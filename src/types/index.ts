@@ -213,15 +213,7 @@ export interface RentalAgreement {
     | "COMMERCIAL"
     | "STUDENT"
     | "SENIOR";
-  status:
-    | "DRAFT"
-    | "PENDING"
-    | "ACTIVE"
-    | "EXPIRED"
-    | "TERMINATED"
-    | "RENEWED"
-    | "CANCELLED"
-    | "SUSPENDED";
+  status: AgreementStatus;
   startDate: string;
   endDate?: string;
   baseRentAmount: string;
@@ -237,6 +229,98 @@ export interface RentalAgreement {
   updatedBy?: string;
   metadata?: any;
   voided: boolean;
+  participants?: Array<RentalAgreementParticipant>;
+  additionalCharges?: Array<RentalAgreementAdditionalCharge>;
+  leaseDetails?: LeaseDetails;
+  rentalDetails?: RentalDetails;
+  shortTermDetails?: ShortTermDetails;
+  statusHistory?: Array<AgreementStatusHistory>;
+}
+
+export type AgreementStatus =
+  | "DRAFT"
+  | "PENDING"
+  | "ACTIVE"
+  | "EXPIRED"
+  | "TERMINATED"
+  | "RENEWED"
+  | "CANCELLED"
+  | "SUSPENDED";
+export interface AgreementStatusHistory {
+  id: string;
+  agreementId: String;
+  agreement: RentalAgreement;
+  previousStatus: AgreementStatus;
+  newStatus: AgreementStatus;
+  changedBy?: string;
+  reason?: string;
+  createdAt: string;
+}
+export interface RentalDetails {
+  id: string;
+  agreementId: string;
+}
+
+export interface ShortTermDetails {
+  id: string;
+  agreementId: string;
+}
+
+export interface LeaseDetails {
+  id: string;
+  agreementId: string;
+  leaseTerm: number;
+  renewalOptions: null;
+  rentEscalation: null;
+  maintenanceTerms: null;
+  leaseCompliance: null;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface RentalAgreementParticipant {
+  id: string;
+  agreementId: string;
+  organizationId: string;
+  tenantId: string;
+  tenant?: Tenant;
+  participantType:
+    | "CO_TENANT"
+    | "PRIMARY_TENANT"
+    | "GUARANTOR"
+    | "OCCUPANT"
+    | "SUBLESSEE"
+    | "AUTHORIZED_OCCUPANT";
+  responsibilityPercentage?: string;
+  status: "ACTIVE" | "TERMINATED" | "EXPIRED" | "PENDING" | "SUSPENDED";
+  moveInDate: string;
+  moveOutDate?: string;
+  participantTerms?: any;
+  createdAt: string;
+  updatedAt: string;
+  metadata?: Record<string, any>;
+}
+
+export interface RentalAgreementAdditionalCharge {
+  id: string;
+  agreementId: string;
+  name: string;
+  description?: string;
+  amount: string;
+  frequency:
+    | "ONE_TIME"
+    | "DAILY"
+    | "WEEKLY"
+    | "MONTHLY"
+    | "QUARTERLY"
+    | "ANNUALLY"
+    | "PER_NIGHT"
+    | "PER_STAY";
+  mandatory: boolean;
+  dueDate?: string;
+  chargeMetadata?: Record<string, any>;
+  voided: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface RentalApplication {

@@ -11,16 +11,19 @@ import { ColumnDef } from "@tanstack/react-table";
 import { TenancyAgreement } from "../types";
 import { Link } from "react-router-dom";
 import PropertyCell from "../components/PropertyCell";
+import { useSession } from "@hive/esm-core-api";
 
 const OrganizationAgreementsPage = () => {
   const agreementsAsync = useTenancyAgreements();
-
+  const { currentOrganization } = useSession();
   return (
     <Stack>
       <Box>
         <DashboardPageHeader
           title="Tenancy Agreements"
-          subTitle={"Organization rental agreements"}
+          subTitle={`${
+            currentOrganization ? "Organization" : "My"
+          } rental agreements`}
           icon={"contract"}
         />
       </Box>

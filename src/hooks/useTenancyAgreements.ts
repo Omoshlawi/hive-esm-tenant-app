@@ -6,12 +6,16 @@ import {
   APIListResponse,
   constructUrl,
   mutate,
+  useSession,
 } from "@hive/esm-core-api";
 
 export const useTenancyAgreements = () => {
-  const { data, isLoading, error } = useSWR<
-    APIFetchResponse<APIListResponse<TenancyAgreement>>
-  >("/tenancy-agreements");
+  const { currentOrganization } = useSession();
+  const url = constructUrl("/tenancy-agreements", {
+    context: currentOrganization,
+  });
+  const { data, isLoading, error } =
+    useSWR<APIFetchResponse<APIListResponse<TenancyAgreement>>>(url);
   return {
     agreements: data?.data?.results ?? [],
     isLoading,

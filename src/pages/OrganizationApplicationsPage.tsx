@@ -5,11 +5,13 @@ import React, { FC } from "react";
 import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
 import { useTenancyApplications } from "../hooks";
 import { PropsWithLaunchWorkspace, TenancyApplication } from "../types";
+import { useSession } from "@hive/esm-core-api";
 
 const OrganizationApplicationsPage: FC<PropsWithLaunchWorkspace> = ({
   launchWorkspace,
 }) => {
   const applicationsAsync = useTenancyApplications();
+  const { currentOrganization } = useSession();
   const handleDelete = (application: TenancyApplication) => {
     openConfirmModal({
       title: "Delete listing",
@@ -32,7 +34,9 @@ const OrganizationApplicationsPage: FC<PropsWithLaunchWorkspace> = ({
       <Box>
         <DashboardPageHeader
           title="Tenancy Applications"
-          subTitle={"Organization rental applications"}
+          subTitle={`${
+            currentOrganization ? "Organization" : "My"
+          } rental applications`}
           icon={"homeQuestion"}
         />
       </Box>

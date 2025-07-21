@@ -1,5 +1,13 @@
 import { TablerIcon } from "@hive/esm-core-components";
-import { Button, Fieldset, Group, Select, Stack, Title } from "@mantine/core";
+import {
+  Alert,
+  Button,
+  Fieldset,
+  Group,
+  Select,
+  Stack,
+  Title,
+} from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import React, { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -13,13 +21,18 @@ type Props = {
 const ParticipantsStep: FC<Props> = ({ onNext, onPrev }) => {
   const form = useFormContext<TenancyAgreementFormData>();
   const participants = form.watch("participants") ?? [];
-
+  const participantErrors = form.formState.errors?.participants?.message;
   return (
     <Stack h={"100%"} justify="space-between">
       <Stack gap={"md"}>
         <Title order={4} pt={"lg"}>
           Particpants
         </Title>
+        {participantErrors && (
+          <Alert color="red" variant="light" title="Error">
+            {participantErrors}
+          </Alert>
+        )}
         {participants.map((_, index) => (
           <Fieldset legend={"Participant"} py={"xs"} key={index}>
             <Stack flex={1} gap={"xs"}>

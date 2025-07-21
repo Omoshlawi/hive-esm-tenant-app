@@ -126,11 +126,11 @@ const AgreementForm: FC<Props> = ({
       } else {
         // Set all backend validation errors
         Object.entries(e).forEach(([key, val]) => {
-          if (key === "listingId")
+          if (key === "applicationId")
             showNotification({
               color: "red",
-              title: "Invalid listing",
-              message: val,
+              title: "Invalid application",
+              message: `${val} (Application already used for Tenancy agreement)`,
             });
           else
             form.setError(key as keyof TenancyAgreementFormData, {

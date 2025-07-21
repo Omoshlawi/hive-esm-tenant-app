@@ -11,10 +11,15 @@ import {
   APIListResponse,
   constructUrl,
   mutate,
+  useSession,
 } from "@hive/esm-core-api";
 
 export const useTenancyApplications = (params: Record<string, any> = {}) => {
-  const url = constructUrl("/tenancy-applications", { ...params });
+  const { currentOrganization } = useSession();
+  const url = constructUrl("/tenancy-applications", {
+    ...params,
+    context: currentOrganization,
+  });
   const { data, error, isLoading } =
     useSWR<APIFetchResponse<APIListResponse<TenancyApplication>>>(url);
   return {

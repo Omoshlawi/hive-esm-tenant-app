@@ -230,7 +230,9 @@ const AgreementDetailPage: FC<PropsWithLaunchWorkspace> = ({
 
               <Group justify="space-between">
                 <Text fw={500}>Lease Term</Text>
-                <Text>{agreementData.leaseDetails.leaseTerm} year(s)</Text>
+                <Text>
+                  {agreementData.leaseDetails?.leaseTerm ?? "--"} year(s)
+                </Text>
               </Group>
 
               <Group justify="space-between">

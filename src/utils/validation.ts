@@ -149,7 +149,9 @@ export const TenancyAgreementValidator = z.object({
   petsAllowed: z.boolean().optional(),
   smokingAllowed: z.boolean().optional(),
   sublettingAllowed: z.boolean().optional(),
-  participants: AgreementParticipantValudator.array().nonempty(),
+  participants: AgreementParticipantValudator.array().nonempty(
+    "You must provide atleast one participant"
+  ),
   additionalCharges: AdditionalChargeValidator.array().optional(),
   leaseDetails: LeaseAgreementDetailsValidator.optional(),
   rentalDetails: RentalAgreementDetailsValidator.optional(),

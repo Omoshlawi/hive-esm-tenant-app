@@ -31,7 +31,7 @@ const OrganizationApplicationsPage: FC<PropsWithLaunchWorkspace> = ({
     <Stack>
       <Box>
         <DashboardPageHeader
-          title="Rental Applications"
+          title="Tenancy Applications"
           subTitle={"Organization rental applications"}
           icon={"homeQuestion"}
         />

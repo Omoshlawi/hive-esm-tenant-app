@@ -6,7 +6,7 @@ import {
   AgreementDetail,
   ListingApplications,
   OrganizationApplications,
-  OrganizationRentalAgreements,
+  OrganizationAgreements,
   OrganizationTenants,
   PropertyAgreements,
 } from "./pages";
@@ -28,7 +28,7 @@ export function setup(app: PiletApi) {
   );
   app.registerPage(
     "/dashboard/tenancy-agreements",
-    () => <OrganizationRentalAgreements />,
+    () => <OrganizationAgreements />,
     {
       layout: "dashboard",
     }

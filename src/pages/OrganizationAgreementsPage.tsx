@@ -12,7 +12,7 @@ import { TenancyAgreement } from "../types";
 import { Link } from "react-router-dom";
 import PropertyCell from "../components/PropertyCell";
 
-const OrganizationRentalAgreementsPage = () => {
+const OrganizationAgreementsPage = () => {
   const agreementsAsync = useTenancyAgreements();
 
   return (
@@ -61,7 +61,7 @@ const OrganizationRentalAgreementsPage = () => {
   );
 };
 
-export default OrganizationRentalAgreementsPage;
+export default OrganizationAgreementsPage;
 const columns: ColumnDef<TenancyAgreement>[] = [
   {
     accessorKey: "agreementNumber",

@@ -3,7 +3,7 @@ import OrganizationTenantsPage from "./OrganizationTenantsPage";
 import PropertyTenancyHistoryPage from "./PropertyTenancyHistoryPage";
 import ListingApplicationsPage from "./ListingApplicationsPage";
 import OrganizationApplicationsPage from "./OrganizationApplicationsPage";
-import OrganizationRentalAgreementsPage from "./OrganizationRentalAgreementsPage";
+import OrganizationAgreementsPage from "./OrganizationAgreementsPage";
 import React from "react";
 import PropertyAgreementsPage from "./PropertyAgreementsPage";
 import AgreementDetailPage from "./AgreementDetailPage";
@@ -26,8 +26,8 @@ export const OrganizationApplications = withUserAccess(
   { isAuthenticated: (session) => session.isAuthenticated, requiresAuth: true }
 );
 
-export const OrganizationRentalAgreements = withUserAccess(
-  OrganizationRentalAgreementsPage,
+export const OrganizationAgreements = withUserAccess(
+  OrganizationAgreementsPage,
   { isAuthenticated: (session) => session.isAuthenticated, requiresAuth: true }
 );
 

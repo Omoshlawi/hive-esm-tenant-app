@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { RentalAgreement, RentalAgreementFormdata } from "../types";
+import { TenancyAgreement, TenancyAgreementFormData } from "../types";
 import {
   apiFetch,
   APIFetchResponse,
@@ -8,11 +8,10 @@ import {
   mutate,
 } from "@hive/esm-core-api";
 
-export const useRentalAgreements = () => {
-  const { data, isLoading, error } =
-    useSWR<APIFetchResponse<APIListResponse<RentalAgreement>>>(
-      "/rental-agreements"
-    );
+export const useTenancyAgreements = () => {
+  const { data, isLoading, error } = useSWR<
+    APIFetchResponse<APIListResponse<TenancyAgreement>>
+  >("/tenancy-agreements");
   return {
     agreements: data?.data?.results ?? [],
     isLoading,
@@ -20,12 +19,12 @@ export const useRentalAgreements = () => {
   };
 };
 
-export const useRentalAgreement = (id: string) => {
-  const url = constructUrl(`/rental-agreements/${id}`, {
+export const useTenancyAgreement = (id: string) => {
+  const url = constructUrl(`/tenancy-agreements/${id}`, {
     v: "custom:include(additionalCharges,participants:include(tenant),leaseDetails,rentalDetails,shortTermDetails,statusHistory)",
   });
   const { data, isLoading, error } =
-    useSWR<APIFetchResponse<RentalAgreement>>(url);
+    useSWR<APIFetchResponse<TenancyAgreement>>(url);
   return {
     agreement: data?.data ?? null,
     isLoading,
@@ -33,8 +32,8 @@ export const useRentalAgreement = (id: string) => {
   };
 };
 
-const addAgreement = async (data: RentalAgreementFormdata) => {
-  const res = await apiFetch<RentalAgreement>("/rental-agreement", {
+const addAgreement = async (data: TenancyAgreementFormData) => {
+  const res = await apiFetch<TenancyAgreement>("/rental-agreement", {
     method: "POST",
     data,
   });
@@ -43,10 +42,10 @@ const addAgreement = async (data: RentalAgreementFormdata) => {
 
 const updateAgreement = async (
   id: string,
-  data: RentalAgreementFormdata,
+  data: TenancyAgreementFormData,
   method: "PUT" | "PATCH" = "PATCH"
 ) => {
-  const res = await apiFetch<RentalAgreement>(`/rental-agreement/${id}`, {
+  const res = await apiFetch<TenancyAgreement>(`/rental-agreement/${id}`, {
     method: method,
     data,
   });
@@ -57,17 +56,17 @@ const deleteAgreement = async (
   id: string,
   method: "DELETE" | "PURGE" = "DELETE"
 ) => {
-  const res = await apiFetch<RentalAgreement>(`/rental-agreement/${id}`, {
+  const res = await apiFetch<TenancyAgreement>(`/rental-agreement/${id}`, {
     method: method,
   });
   return res.data;
 };
 
-export const useRentalAgreementApi = () => {
+export const useTenancyAgreementApi = () => {
   return {
     addAgreement,
     updateAgreement,
     deleteAgreement,
-    mutateAgreements: () => mutate("/rental-agreements"),
+    mutateAgreements: () => mutate("/tenancy-agreements"),
   };
 };

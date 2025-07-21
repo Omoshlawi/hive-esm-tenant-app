@@ -34,7 +34,7 @@ import {
 } from "@tabler/icons-react";
 import React, { FC, useMemo } from "react";
 import { useParams } from "react-router";
-import { useRentalAgreement } from "../hooks";
+import { useTenancyAgreement } from "../hooks";
 import { PropsWithLaunchWorkspace } from "../types";
 
 function getStatusColor(status: string) {
@@ -92,7 +92,7 @@ const AgreementDetailPage: FC<PropsWithLaunchWorkspace> = ({
     agreement: agreementData,
     error,
     isLoading,
-  } = useRentalAgreement(agreementId);
+  } = useTenancyAgreement(agreementId);
 
   const totalMonthlyCharges = useMemo(() => {
     if (!agreementData) return 0;

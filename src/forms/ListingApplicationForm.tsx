@@ -11,8 +11,8 @@ import {
   useForm,
 } from "react-hook-form";
 import { useRentalApplicationApi } from "../hooks";
-import { RentalApplication, RentalApplicationFormData } from "../types";
-import { RentalApplicationValidator } from "../utils/validation";
+import { TenancyApplication, TenancyApplicationFormData } from "../types";
+import { TenancyApplicationValidator } from "../utils/validation";
 import {
   BasicsFormStep,
   CoApplicantsStep,
@@ -20,8 +20,8 @@ import {
 } from "./application";
 type Props = {
   listingId: string;
-  application?: RentalApplication;
-  onSuccess?: (application: RentalApplication) => void;
+  application?: TenancyApplication;
+  onSuccess?: (application: TenancyApplication) => void;
   onCloseWorkspace?: () => void;
 };
 
@@ -35,7 +35,7 @@ const ListingApplicationForm: FC<Props> = ({
 }) => {
   const { addApplication, updateApplication, mutateApplications } =
     useRentalApplicationApi();
-  const form = useForm<RentalApplicationFormData>({
+  const form = useForm<TenancyApplicationFormData>({
     defaultValues: {
       //   title: appointment?.title,
       //   description: listing?.description,
@@ -46,13 +46,13 @@ const ListingApplicationForm: FC<Props> = ({
       //   type: listing?.type,
       listingId,
     },
-    resolver: zodResolver(RentalApplicationValidator),
+    resolver: zodResolver(TenancyApplicationValidator),
   });
 
   const navigateToErrorStep = useCallback(() => {
     const fieldSteps: Record<
       FormSteps,
-      Array<FieldPath<RentalApplicationFormData>>
+      Array<FieldPath<TenancyApplicationFormData>>
     > = {
       basic: [
         "desiredMoveInDate",
@@ -90,7 +90,7 @@ const ListingApplicationForm: FC<Props> = ({
     }
   }, [form.formState.errors, navigateToErrorStep]);
 
-  const onSubmit: SubmitHandler<RentalApplicationFormData> = async (data) => {
+  const onSubmit: SubmitHandler<TenancyApplicationFormData> = async (data) => {
     try {
       const res = application
         ? await updateApplication(application?.id, data)
@@ -106,7 +106,7 @@ const ListingApplicationForm: FC<Props> = ({
         color: "teal",
       });
     } catch (error) {
-      const e = handleApiErrors<RentalApplicationFormData>(error);
+      const e = handleApiErrors<TenancyApplicationFormData>(error);
       if (e.detail) {
         showNotification({ title: "Error", message: e.detail, color: "red" });
       } else {
@@ -119,7 +119,7 @@ const ListingApplicationForm: FC<Props> = ({
               message: val,
             });
           else
-            form.setError(key as keyof RentalApplicationFormData, {
+            form.setError(key as keyof TenancyApplicationFormData, {
               message: val,
             });
         });

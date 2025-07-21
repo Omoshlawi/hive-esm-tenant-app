@@ -27,7 +27,7 @@ export function setup(app: PiletApi) {
     }
   );
   app.registerPage(
-    "/dashboard/rental-agreements",
+    "/dashboard/tenancy-agreements",
     () => <OrganizationRentalAgreements />,
     {
       layout: "dashboard",
@@ -80,7 +80,7 @@ export function setup(app: PiletApi) {
     ({ onClose }: any) => (
       <HeaderLink
         label="Tenancy Agreements"
-        to="/dashboard/rental-agreements"
+        to="/dashboard/tenancy-agreements"
         icon="contract"
         onClose={onClose ?? (() => {})}
       />

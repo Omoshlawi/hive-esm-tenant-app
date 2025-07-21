@@ -6,7 +6,7 @@ import React, { FC } from "react";
 import { useParams } from "react-router";
 import ListingApplicationForm from "../forms/ListingApplicationForm";
 import { useRentalApplications } from "../hooks";
-import { RentalApplication } from "../types";
+import { TenancyApplication } from "../types";
 import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
 
 type Props = Pick<PiletApi, "launchWorkspace">;
@@ -15,7 +15,7 @@ const ListingApplicationsPage: FC<Props> = ({ launchWorkspace }) => {
   const { listingId } = useParams<{ listingId: string }>();
   const applicationsAsync = useRentalApplications({ listingId });
 
-  const handleAddOrupdate = (application?: RentalApplication) => {
+  const handleAddOrupdate = (application?: TenancyApplication) => {
     const dispose = launchWorkspace(
       <ListingApplicationForm
         application={application}
@@ -30,7 +30,7 @@ const ListingApplicationsPage: FC<Props> = ({ launchWorkspace }) => {
       }
     );
   };
-  const handleDelete = (application: RentalApplication) => {
+  const handleDelete = (application: TenancyApplication) => {
     openConfirmModal({
       title: "Delete listing",
       children: (

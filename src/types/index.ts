@@ -6,8 +6,8 @@ import {
   LeaseAgreementDetailsValidator,
   Personvalidator,
   RentalAgreementDetailsValidator,
-  RentalAgreementValidator,
-  RentalApplicationValidator,
+  TenancyAgreementValidator,
+  TenancyApplicationValidator,
   ShortTermAgreementDetailsValidator,
   TenantValidator,
   TenenantReferenceValidator,
@@ -197,7 +197,7 @@ export interface ListingFilterParams {
   types: Array<Listing["type"]>;
 }
 
-export interface RentalAgreement {
+export interface TenancyAgreement {
   id: string;
   organizationId: string;
   propertyId: string;
@@ -229,8 +229,8 @@ export interface RentalAgreement {
   updatedBy?: string;
   metadata?: any;
   voided: boolean;
-  participants?: Array<RentalAgreementParticipant>;
-  additionalCharges?: Array<RentalAgreementAdditionalCharge>;
+  participants?: Array<TenancyAgreementParticipant>;
+  additionalCharges?: Array<TenancyAgreementAdditionalCharge>;
   leaseDetails?: LeaseDetails;
   rentalDetails?: RentalDetails;
   shortTermDetails?: ShortTermDetails;
@@ -249,7 +249,7 @@ export type AgreementStatus =
 export interface AgreementStatusHistory {
   id: string;
   agreementId: String;
-  agreement: RentalAgreement;
+  agreement: TenancyAgreement;
   previousStatus: AgreementStatus;
   newStatus: AgreementStatus;
   changedBy?: string;
@@ -277,7 +277,7 @@ export interface LeaseDetails {
   createdAt: string;
   updatedAt: string;
 }
-export interface RentalAgreementParticipant {
+export interface TenancyAgreementParticipant {
   id: string;
   agreementId: string;
   organizationId: string;
@@ -300,7 +300,7 @@ export interface RentalAgreementParticipant {
   metadata?: Record<string, any>;
 }
 
-export interface RentalAgreementAdditionalCharge {
+export interface TenancyAgreementAdditionalCharge {
   id: string;
   agreementId: string;
   name: string;
@@ -323,7 +323,7 @@ export interface RentalAgreementAdditionalCharge {
   updatedAt: string;
 }
 
-export interface RentalApplication {
+export interface TenancyApplication {
   id: string;
   organizationId: string;
   personId: string;
@@ -359,7 +359,7 @@ export interface RentalApplication {
   voided: boolean;
 }
 
-export interface RentalApplicationReference {
+export interface TenancyApplicationReference {
   id: string;
   applicationId: string;
   referenceType: string;
@@ -377,7 +377,7 @@ export interface RentalApplicationReference {
   updatedAt: string;
 }
 
-export interface RentalApplicationCoApplicants {
+export interface TenancyApplicationCoApplicants {
   id: string;
   applicationId: string;
   personId: string;
@@ -424,8 +424,8 @@ export interface Tenant {
   voided: boolean;
 }
 
-export type RentalApplicationFormData = z.infer<
-  typeof RentalApplicationValidator
+export type TenancyApplicationFormData = z.infer<
+  typeof TenancyApplicationValidator
 >;
 export type PersonFormData = z.infer<typeof Personvalidator>;
 
@@ -434,20 +434,22 @@ export type TenenantReferenceFormData = z.infer<
   typeof TenenantReferenceValidator
 >;
 export type TenantFormData = z.infer<typeof TenantValidator>;
-export type RentalAgreementFormdata = z.infer<typeof RentalAgreementValidator>;
-export type ShortTermAgreementDetailsFormdata = z.infer<
+export type TenancyAgreementFormData = z.infer<
+  typeof TenancyAgreementValidator
+>;
+export type ShortTermAgreementDetailsFormData = z.infer<
   typeof ShortTermAgreementDetailsValidator
 >;
-export type RentalAgreementDetailsFormdata = z.infer<
+export type RentalAgreementDetailsFormData = z.infer<
   typeof RentalAgreementDetailsValidator
 >;
-export type LeaseAgreementDetailsFormdata = z.infer<
+export type LeaseAgreementDetailsFormData = z.infer<
   typeof LeaseAgreementDetailsValidator
 >;
-export type RentalAgreementParticipantFormdata = z.infer<
+export type TenancyAgreementParticipantFormData = z.infer<
   typeof AgreementParticipantValudator
 >;
-export type RentalAgreementAdditionalChargeFormdata = z.infer<
+export type TenancyAgreementAdditionalChargeFormdata = z.infer<
   typeof AdditionalChargeValidator
 >;
 export type PropsWithLaunchWorkspace = Pick<PiletApi, "launchWorkspace">;

@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import React, { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { RentalApplicationFormData } from "../../types";
+import { TenancyApplicationFormData } from "../../types";
 import { DateInput } from "@mantine/dates";
 import { INPUT_ORDER } from "../../utils/constants";
 import PersonInput from "../common/PersonInput";
@@ -18,14 +18,14 @@ type Props = {
 };
 
 const BasicsFormStep: FC<Props> = ({ onCancel, onNext }) => {
-  const form = useFormContext<RentalApplicationFormData>();
+  const form = useFormContext<TenancyApplicationFormData>();
   return (
     <Stack h={"100%"} justify="space-between">
       <Stack gap={"md"}>
         <Title order={4} pt={"lg"}>
           Basic Information
         </Title>
-        <PersonInput control={form.control} name="personId" label="Applicant"/>
+        <PersonInput control={form.control} name="personId" label="Applicant" />
         <Controller
           control={form.control}
           name="desiredMoveInDate"
@@ -131,7 +131,7 @@ const BasicsFormStep: FC<Props> = ({ onCancel, onNext }) => {
               "proposedRent",
               "securityDeposit",
               "vehicleInfo",
-              "personId"
+              "personId",
             ]);
             if (valid) onNext?.();
           }}

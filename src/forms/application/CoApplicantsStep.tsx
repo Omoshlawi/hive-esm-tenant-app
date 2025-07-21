@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import React, { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { RentalApplicationFormData } from "../../types";
+import { TenancyApplicationFormData } from "../../types";
 import PersonInput from "../common/PersonInput";
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
 };
 
 const CoApplicantsStep: FC<Props> = ({ onPrev }) => {
-  const form = useFormContext<RentalApplicationFormData>();
+  const form = useFormContext<TenancyApplicationFormData>();
   const coApplicants = form.watch("coApplicants") ?? [];
 
   return (

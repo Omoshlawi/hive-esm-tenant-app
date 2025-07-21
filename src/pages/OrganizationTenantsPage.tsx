@@ -9,10 +9,10 @@ import { ActionIcon, Box, Button, Group, Stack, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { ColumnDef } from "@tanstack/react-table";
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import TenantForm from "../forms/TenantForm";
 import { useTenants } from "../hooks";
-import { RentalAgreement, Tenant } from "../types";
-import { Link } from "react-router-dom";
+import { Tenant } from "../types";
 type Props = Pick<PiletApi, "launchWorkspace">;
 
 const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
@@ -32,9 +32,9 @@ const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
       }
     );
   };
-  const handleDelete = (agreement: RentalAgreement) => {
+  const handleDelete = (tenant: Tenant) => {
     openConfirmModal({
-      title: "Delete listing",
+      title: "Delete tenant",
       children: (
         <Text>
           Are you sure you want to delete this role.This action is destructive
@@ -67,7 +67,7 @@ const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
             id: "actions",
             header: "Actions",
             cell({ row }) {
-              const listing = row.original;
+              const tenant = row.original;
               return (
                 <Group>
                   <Group>
@@ -75,7 +75,7 @@ const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
                       variant="outline"
                       aria-label="Settings"
                       color="green"
-                      onClick={() => handleAddOrupdate(listing)}
+                      onClick={() => handleAddOrupdate(tenant)}
                     >
                       <TablerIcon
                         name="edit"
@@ -87,7 +87,7 @@ const OrganizationTenantsPage: FC<Props> = ({ launchWorkspace }) => {
                       variant="outline"
                       aria-label="Settings"
                       color="red"
-                      onClick={() => handleDelete(listing)}
+                      onClick={() => handleDelete(tenant)}
                     >
                       <TablerIcon
                         name="trash"

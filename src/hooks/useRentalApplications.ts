@@ -1,9 +1,9 @@
 import useSWR from "swr";
 import {
-  RentalApplication,
-  RentalApplicationCoApplicants,
-  RentalApplicationFormData,
-  RentalApplicationReference,
+  TenancyApplication,
+  TenancyApplicationCoApplicants,
+  TenancyApplicationFormData,
+  TenancyApplicationReference,
 } from "../types";
 import {
   apiFetch,
@@ -16,7 +16,7 @@ import {
 export const useRentalApplications = (params: Record<string, any> = {}) => {
   const url = constructUrl("/rental-applications", { ...params });
   const { data, error, isLoading } =
-    useSWR<APIFetchResponse<APIListResponse<RentalApplication>>>(url);
+    useSWR<APIFetchResponse<APIListResponse<TenancyApplication>>>(url);
   return {
     applications: data?.data?.results ?? [],
     error,
@@ -33,7 +33,7 @@ export const useRentalApplication = (
     ...params,
   });
   const { data, error, isLoading } =
-    useSWR<APIFetchResponse<RentalApplication>>(url);
+    useSWR<APIFetchResponse<TenancyApplication>>(url);
   return {
     application: data?.data,
     error,
@@ -49,7 +49,7 @@ export const useRentalApplicationReferences = (
     ...params,
   });
   const { data, error, isLoading } =
-    useSWR<APIFetchResponse<APIListResponse<RentalApplicationReference>>>(url);
+    useSWR<APIFetchResponse<APIListResponse<TenancyApplicationReference>>>(url);
   return {
     references: data?.data?.results ?? [],
     error,
@@ -68,7 +68,7 @@ export const useRentalApplicationCoApplicants = (
     }
   );
   const { data, error, isLoading } =
-    useSWR<APIFetchResponse<APIListResponse<RentalApplicationCoApplicants>>>(
+    useSWR<APIFetchResponse<APIListResponse<TenancyApplicationCoApplicants>>>(
       url
     );
   return {
@@ -78,8 +78,8 @@ export const useRentalApplicationCoApplicants = (
   };
 };
 
-const addApplication = async (data: RentalApplicationFormData) => {
-  const res = await apiFetch<RentalApplication>("/rental-applications", {
+const addApplication = async (data: TenancyApplicationFormData) => {
+  const res = await apiFetch<TenancyApplication>("/rental-applications", {
     method: "POST",
     data,
   });
@@ -88,10 +88,10 @@ const addApplication = async (data: RentalApplicationFormData) => {
 
 const updateApplication = async (
   id: string,
-  data: RentalApplicationFormData,
+  data: TenancyApplicationFormData,
   method: "PUT" | "PATCH" = "PATCH"
 ) => {
-  const res = await apiFetch<RentalApplication>(`/rental-applications/${id}`, {
+  const res = await apiFetch<TenancyApplication>(`/rental-applications/${id}`, {
     method: method,
     data,
   });
@@ -102,7 +102,7 @@ const deleteApplication = async (
   id: string,
   method: "DELETE" | "PURGE" = "DELETE"
 ) => {
-  const res = await apiFetch<RentalApplication>(`/rental-applications/${id}`, {
+  const res = await apiFetch<TenancyApplication>(`/rental-applications/${id}`, {
     method: method,
   });
   return res.data;

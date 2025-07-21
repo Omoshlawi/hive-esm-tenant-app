@@ -6,20 +6,20 @@ import {
 } from "@hive/esm-core-components";
 import { Stack, Box, ActionIcon, Group, Button } from "@mantine/core";
 import React from "react";
-import { useRentalAgreements } from "../hooks";
+import { useTenancyAgreements } from "../hooks";
 import { ColumnDef } from "@tanstack/react-table";
-import { RentalAgreement } from "../types";
+import { TenancyAgreement } from "../types";
 import { Link } from "react-router-dom";
 import PropertyCell from "../components/PropertyCell";
 
 const OrganizationRentalAgreementsPage = () => {
-  const agreementsAsync = useRentalAgreements();
+  const agreementsAsync = useTenancyAgreements();
 
   return (
     <Stack>
       <Box>
         <DashboardPageHeader
-          title="Rental Agreements"
+          title="Tenancy Agreements"
           subTitle={"Organization rental agreements"}
           icon={"contract"}
         />
@@ -62,7 +62,7 @@ const OrganizationRentalAgreementsPage = () => {
 };
 
 export default OrganizationRentalAgreementsPage;
-const columns: ColumnDef<RentalAgreement>[] = [
+const columns: ColumnDef<TenancyAgreement>[] = [
   {
     accessorKey: "agreementNumber",
     header: ({ column }) => (

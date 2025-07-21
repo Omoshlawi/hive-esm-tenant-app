@@ -1,19 +1,16 @@
-import {
-  DashboardPageHeader,
-  TablerIcon
-} from "@hive/esm-core-components";
+import { DashboardPageHeader, TablerIcon } from "@hive/esm-core-components";
 import { ActionIcon, Box, Group, Stack, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import React, { FC } from "react";
 import RenatlApplicationTable from "../components/application/RenatlApplicationTable";
 import { useRentalApplications } from "../hooks";
-import { PropsWithLaunchWorkspace, RentalApplication } from "../types";
+import { PropsWithLaunchWorkspace, TenancyApplication } from "../types";
 
 const OrganizationApplicationsPage: FC<PropsWithLaunchWorkspace> = ({
   launchWorkspace,
 }) => {
   const applicationsAsync = useRentalApplications();
-  const handleDelete = (application: RentalApplication) => {
+  const handleDelete = (application: TenancyApplication) => {
     openConfirmModal({
       title: "Delete listing",
       children: (

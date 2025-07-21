@@ -15,9 +15,9 @@ import {
 import React, { FC } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import {
-  RentalAgreement,
-  RentalAgreementFormdata,
-  RentalApplicationFormData,
+  TenancyAgreement,
+  TenancyAgreementFormData,
+  TenancyApplicationFormData,
 } from "../../types";
 import PersonInput from "../common/PersonInput";
 
@@ -25,7 +25,7 @@ type Props = {
   onPrev?: () => void;
 };
 const AdditionalChargesStep: FC<Props> = ({ onPrev }) => {
-  const form = useFormContext<RentalAgreementFormdata>();
+  const form = useFormContext<TenancyAgreementFormData>();
   const additionalCharges = form.watch("additionalCharges") ?? [];
 
   return (

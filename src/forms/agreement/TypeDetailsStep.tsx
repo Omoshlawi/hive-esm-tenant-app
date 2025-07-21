@@ -9,14 +9,14 @@ import {
 import { DateTimePicker } from "@mantine/dates";
 import React, { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { RentalAgreementFormdata } from "../../types";
+import { TenancyAgreementFormData } from "../../types";
 import { INPUT_ORDER } from "../../utils/constants";
 type Props = {
   onNext?: () => void;
   onPrev?: () => void;
 };
 const TypeDetailsStep: FC<Props> = ({ onNext, onPrev }) => {
-  const form = useFormContext<RentalAgreementFormdata>();
+  const form = useFormContext<TenancyAgreementFormData>();
   const observableType = form.watch("agreementType");
   return (
     <Stack h={"100%"} justify="space-between">

@@ -6,17 +6,17 @@ import {
   Select,
   Stack,
   TextInput,
-  Title
+  Title,
 } from "@mantine/core";
 import React, { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { RentalApplicationFormData } from "../../types";
+import { TenancyApplicationFormData } from "../../types";
 type Props = {
   onNext?: () => void;
   onPrev?: () => void;
 };
 const ReferencesStep: FC<Props> = ({ onNext, onPrev }) => {
-  const form = useFormContext<RentalApplicationFormData>();
+  const form = useFormContext<TenancyApplicationFormData>();
   const references = form.watch("references") ?? [];
 
   return (

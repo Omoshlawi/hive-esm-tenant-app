@@ -64,7 +64,7 @@ export const CoApplicantValidator = z.object({
   personId: z.string().nonempty().uuid("Invalid"),
   relationshipType: z.string().nonempty(),
 });
-export const RentalApplicationValidator = z.object({
+export const TenancyApplicationValidator = z.object({
   personId: z.string().nonempty().uuid("Invalid"),
   listingId: z.string().nonempty().uuid("Invalid"),
   desiredMoveInDate: z.date({ coerce: true }),
@@ -127,7 +127,7 @@ export const AdditionalChargeValidator = z.object({
   dueDate: z.coerce.date().optional(),
 });
 
-export const RentalAgreementValidator = z.object({
+export const TenancyAgreementValidator = z.object({
   applicationId: z.string().nonempty().uuid({ message: "Invalid" }),
   agreementType: z.enum([
     "LEASE",

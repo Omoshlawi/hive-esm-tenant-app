@@ -7,14 +7,14 @@ import {
 import { Button, Badge, ActionIcon } from "@mantine/core";
 import { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
-import { PropsWithLaunchWorkspace, RentalApplication } from "../../types";
+import { PropsWithLaunchWorkspace, TenancyApplication } from "../../types";
 import { getApplicationStatusColor } from "../../utils/helpers";
 import { useRentalApplications } from "../../hooks";
 import RentalApplicationDetail from "./RentalApplicationDetail";
 type Props = PropsWithLaunchWorkspace & {
   applicationsAsync: ReturnType<typeof useRentalApplications>;
-  actions?: Array<ColumnDef<RentalApplication>>;
-  onAddOrupdate?: (application?: RentalApplication) => void;
+  actions?: Array<ColumnDef<TenancyApplication>>;
+  onAddOrupdate?: (application?: TenancyApplication) => void;
 };
 
 const RenatlApplicationTable: FC<Props> = ({
@@ -45,7 +45,7 @@ const RenatlApplicationTable: FC<Props> = ({
 
 export default RenatlApplicationTable;
 
-export const columns: ColumnDef<RentalApplication>[] = [
+export const columns: ColumnDef<TenancyApplication>[] = [
   {
     id: "expand",
     size: 0,
@@ -136,7 +136,7 @@ export const columns: ColumnDef<RentalApplication>[] = [
     accessorKey: "status",
     header: "Status",
     cell({ getValue }) {
-      const type = getValue<RentalApplication["status"]>();
+      const type = getValue<TenancyApplication["status"]>();
       return (
         <Badge
           variant="outline"

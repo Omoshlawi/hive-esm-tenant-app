@@ -9,9 +9,9 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { useRentalAgreementApi } from "../hooks";
-import { RentalAgreement, RentalAgreementFormdata } from "../types";
-import { RentalAgreementValidator } from "../utils/validation";
+import { useTenancyAgreementApi } from "../hooks";
+import { TenancyAgreement, TenancyAgreementFormData } from "../types";
+import { TenancyAgreementValidator } from "../utils/validation";
 import { Paper, Tabs } from "@mantine/core";
 import {
   BasicsStep,
@@ -20,8 +20,8 @@ import {
   AdditionalChargesStep,
 } from "./agreement";
 type Props = {
-  agreement?: RentalAgreement;
-  onSuccess?: (agreement: RentalAgreement) => void;
+  agreement?: TenancyAgreement;
+  onSuccess?: (agreement: TenancyAgreement) => void;
   onCloseWorkspace?: () => void;
   applicationId: string;
 };
@@ -39,8 +39,8 @@ const AgreementForm: FC<Props> = ({
   applicationId,
 }) => {
   const { addAgreement, updateAgreement, mutateAgreements } =
-    useRentalAgreementApi();
-  const form = useForm<RentalAgreementFormdata>({
+    useTenancyAgreementApi();
+  const form = useForm<TenancyAgreementFormData>({
     defaultValues: {
       //   title: appointment?.title,
       //   description: listing?.description,
@@ -51,13 +51,13 @@ const AgreementForm: FC<Props> = ({
       //   type: listing?.type,
       applicationId: applicationId,
     },
-    resolver: zodResolver(RentalAgreementValidator),
+    resolver: zodResolver(TenancyAgreementValidator),
   });
 
   const navigateToErrorStep = useCallback(() => {
     const fieldSteps: Record<
       FormSteps,
-      Array<FieldPath<RentalAgreementFormdata>>
+      Array<FieldPath<TenancyAgreementFormData>>
     > = {
       basics: [
         "applicationId",
@@ -106,7 +106,7 @@ const AgreementForm: FC<Props> = ({
       navigateToErrorStep();
     }
   }, [form.formState.errors, navigateToErrorStep]);
-  const onSubmit: SubmitHandler<RentalAgreementFormdata> = async (data) => {
+  const onSubmit: SubmitHandler<TenancyAgreementFormData> = async (data) => {
     try {
       const res = agreement
         ? await updateAgreement(agreement?.id, data)
@@ -120,7 +120,7 @@ const AgreementForm: FC<Props> = ({
         color: "teal",
       });
     } catch (error) {
-      const e = handleApiErrors<RentalAgreementFormdata>(error);
+      const e = handleApiErrors<TenancyAgreementFormData>(error);
       if (e.detail) {
         showNotification({ title: "Error", message: e.detail, color: "red" });
       } else {
@@ -133,7 +133,7 @@ const AgreementForm: FC<Props> = ({
               message: val,
             });
           else
-            form.setError(key as keyof RentalAgreementFormdata, {
+            form.setError(key as keyof TenancyAgreementFormData, {
               message: val,
             });
         });

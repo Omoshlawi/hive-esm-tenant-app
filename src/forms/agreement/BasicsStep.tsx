@@ -9,14 +9,14 @@ import {
 import { DateInput } from "@mantine/dates";
 import React, { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { RentalAgreementFormdata } from "../../types";
+import { TenancyAgreementFormData } from "../../types";
 import { INPUT_ORDER } from "../../utils/constants";
 type Props = {
   onNext?: () => void;
   onCancel?: () => void;
 };
 const BasicsStep: FC<Props> = ({ onCancel, onNext }) => {
-  const form = useFormContext<RentalAgreementFormdata>();
+  const form = useFormContext<TenancyAgreementFormData>();
 
   return (
     <Stack h={"100%"} justify="space-between">
